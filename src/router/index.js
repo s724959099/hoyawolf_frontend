@@ -11,10 +11,10 @@ const routes = [
     component: Home,
   },
   {
-    path: '/line-auth',
-    name: 'LineAuth',
+    path: '/member/setting',
+    name: 'MemberSetting',
     component: () =>
-      import(/* webpackChunkName: "line" */ '../views/About.vue'),
+      import(/* webpackChunkName: "member" */ '../views/Member/Setting.vue'),
   },
 ]
 

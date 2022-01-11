@@ -7,9 +7,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
-import Qs from 'qs'
-Vue.prototype.Qs = Qs
-
 Vue.config.productionTip = false
 
 new Vue({
