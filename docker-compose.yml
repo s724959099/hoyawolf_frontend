@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  vue:
+    image: hoyawolf_frontend
+    tty: true
+    volumes:
+      - "~/hoyawolf_frontend:/app"
+    expose:
+      - 8080
+    ports:
+      - 8080:80
