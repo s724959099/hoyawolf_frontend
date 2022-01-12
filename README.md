@@ -1,24 +1,20 @@
 # hoyawalf_frontend
 
-## Project setup
+## 部署
+```
+cd hoyawalf_frontend
+docker build -t test .
+```
+
+### 開發
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
+docker-compose up
+docker-compose down
 ```
 
-### Compiles and minifies for production
+### 打包到生產環境
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

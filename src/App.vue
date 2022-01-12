@@ -1,36 +1,63 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
     <v-app-bar app color="white" dark>
-      <v-toolbar-title>
-        <router-link :to="{ name: 'Home' }">HoyaWolf</router-link>
-      </v-toolbar-title>
+      <v-container class="py-0 fill-height">
+        <v-avatar class="mr-10" color="grey darken-1" size="48">
+          <router-link :to="{ path: '/' }">
+            <img :src="logo" />
+          </router-link>
+        </v-avatar>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <line-button v-if="!isLogin" @click="loginEvent()"></line-button>
+        <v-btn v-if="!isLogin" elevation="2" @click="loginEvent()"
+          >Line登入
+        </v-btn>
 
-      <v-btn class="mr-2 ml-2" elevation="2" @click="notifyEvent">
-        Notify
-      </v-btn>
-
-      <div class="text-center">
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-avatar v-bind="attrs" v-on="on">
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-            </v-avatar>
-          </template>
-          <v-list>
-            <v-list-item>
-              <v-list-item-title>訊息推播</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
+        <div @click.stop="drawer = !drawer">
+          <v-icon large color="cyan lighten-2">
+            mdi-message-alert-outline
+          </v-icon>
+          <!-- <v-avatar v-bind="attrs" v-on="on">
+            :src="info.idTokenDecode.picture"
+            <img :src="logo" :alt="info.name" />
+          </v-avatar> -->
+        </div>
+      </v-container>
     </v-app-bar>
 
-    <v-main>
-      <router-view />
+    <v-navigation-drawer v-model="drawer" absolute right temporary>
+      <v-list nav dense>
+        <v-subheader>選單</v-subheader>
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <router-link :to="{ name: 'MemberSetting' }">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-message-alert-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="'設定推播'"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+
+          <v-list-item @click="signOut">
+            <v-list-item-icon>
+              <v-icon>mdi-logout-variant</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="'登出'"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main class="lighten-3">
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
@@ -38,19 +65,25 @@
 <script>
 // Utils
 import { mapState } from 'vuex'
-// Component
-import LineButton from '@/components/LineButton'
 
 export default {
   name: 'App',
-  components: { LineButton },
 
   data: () => ({
     stateCode: 'bff10f539a160bc044304007f2a5d8d0',
+    drawer: null,
+    logo: require('./assets/images/hoyawolf-logo.png'),
+    group: null,
   }),
 
+  watch: {
+    group() {
+      this.drawer = false
+    },
+  },
+
   computed: {
-    ...mapState(['isLogin']),
+    ...mapState(['isLogin', 'info']),
   },
 
   methods: {
@@ -73,19 +106,8 @@ export default {
       window.open(loginUrl, '_self') // 轉跳到該網址
     },
 
-    // 請求 Notify 授權
-    notifyEvent() {
-      let url = 'https://notify-bot.line.me/oauth/authorize?'
-
-      url += 'response_type=code'
-      // url += `&client_id=${process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID}`
-      url += `&client_id=p8OqBWia6p1imkzQrjpsUs`
-      url += `&redirect_uri=${process.env.VUE_APP_LINE_REDIRECT_URL}` // 要接收回傳訊息的網址
-      url += `&state=${this.stateCode}`
-      url += '&scope=notify'
-
-      window.open(url, 'self')
-    },
+    // 登出
+    signOut() {},
   },
 }
 </script>

@@ -12,9 +12,10 @@ export function getLineAccessTokenAPI(data) {
   })
 }
 
-export function getNotifyTokenAPI(data) {
+// 拿 code 換 Notify Access Token
+export function getNotifyAccessTokenAPI(data) {
   return notifyRequest({
-    url: '/oauth2/authorize',
+    url: '/oauth2/token',
     method: 'post',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
