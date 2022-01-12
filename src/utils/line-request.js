@@ -1,8 +1,9 @@
 import axios from 'axios'
+const isDev = process.env.NODE_ENV === 'development'
 
 const lineRequest = axios.create({
   // baseURL: process.env.VUE_APP_LINE_API,
-  baseURL: '/line',
+  baseURL: isDev ? '/line' : process.env.VUE_APP_WOLF_API,
   timeout: 50000,
 })
 
@@ -30,4 +31,10 @@ lineRequest.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-export default lineRequest
+
+const notifyRequest = axios.create({
+  baseURL: isDev ? '/notify' : process.env.VUE_APP_WOLF_API,
+  timeout: 50000,
+})
+
+export { lineRequest, notifyRequest }

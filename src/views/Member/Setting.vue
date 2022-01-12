@@ -18,6 +18,7 @@
 // Utils
 import Qs from 'qs'
 import jwtDecode from 'jwt-decode'
+import { mapMutations } from 'vuex'
 // API
 import { getLineAccessTokenAPI } from '@/api/line'
 
@@ -36,6 +37,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations({
+      changeLoginStatus: 'CHANGE_LOGIN',
+    }),
+
     // 請求使用者資料
     async getData() {
       // 接網址的參數
@@ -56,9 +61,22 @@ export default {
           this.tokenResult = result.data
           // 把結果的 id_token 做解析
           this.idTokenDecode = jwtDecode(result.data.id_token)
+
+          this.setUserInfo = jwtDecode(result.data.id_token)
+          this.changeLoginStatus(true)
         }
       } catch (error) {
+        this.changeLoginStatus(false)
+        console.error(error)
         alert(error)
+      }
+    },
+
+    async getNotifyToken() {
+      try {
+        console.log(this.$route.query)
+      } catch (error) {
+        console.error(error)
       }
     },
   },
