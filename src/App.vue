@@ -14,7 +14,7 @@
           >Line登入
         </v-btn>
 
-        <div v-if="isLogin" @click.stop="drawer = !drawer" v-if="isLogin">
+        <div v-if="isLogin" @click.stop="drawer = !drawer">
           <v-icon large color="cyan lighten-2">
             mdi-message-alert-outline
           </v-icon>
