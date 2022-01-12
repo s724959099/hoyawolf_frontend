@@ -21,6 +21,14 @@ module.exports = {
           '/line': '',
         },
       },
+      '/notify': {
+        target: process.env.VUE_APP_LINE_NOTIFY_API,
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '/notify': '',
+        },
+      },
     },
   },
 }
