@@ -26,7 +26,11 @@ import Qs from 'qs'
 import jwtDecode from 'jwt-decode'
 import { mapMutations } from 'vuex'
 // API
-import { getLineAccessTokenAPI, getNotifyAccessTokenAPI } from '@/api/line'
+import {
+  getLineAccessTokenAPI,
+  getNotifyAccessTokenAPI,
+  lineRedirectAPI,
+} from '@/api/line'
 
 export default {
   name: 'MemberSetting',
@@ -103,17 +107,21 @@ export default {
     },
 
     // 請求 Notify 授權
-    notifyEvent() {
-      let url = 'https://notify-bot.line.me/oauth/authorize?'
+    async notifyEvent() {
+      const params = { redirect_uri: `${location.origin}/member/setting` }
+      const result = await lineRedirectAPI(params)
+      console.log(result)
+      window.open(result, 'self')
+      // let url = 'https://notify-bot.line.me/oauth/authorize?'
 
-      url += 'response_type=code'
-      // url += `&client_id=${process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID}`
-      url += `&client_id=p8OqBWia6p1imkzQrjpsUs`
-      url += `&redirect_uri=${process.env.VUE_APP_LINE_REDIRECT_URL}` // 要接收回傳訊息的網址
-      url += `&state=${this.stateCode}`
-      url += '&scope=notify'
+      // url += 'response_type=code'
+      // // url += `&client_id=${process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID}`
+      // url += `&client_id=p8OqBWia6p1imkzQrjpsUs`
+      // url += `&redirect_uri=${process.env.VUE_APP_LINE_REDIRECT_URL}` // 要接收回傳訊息的網址
+      // url += `&state=${this.stateCode}`
+      // url += '&scope=notify'
 
-      window.open(url, 'self')
+      // window.open(url, 'self')
     },
   },
 }

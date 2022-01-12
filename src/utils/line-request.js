@@ -2,8 +2,7 @@ import axios from 'axios'
 const isDev = process.env.NODE_ENV === 'development'
 
 const lineRequest = axios.create({
-  // baseURL: process.env.VUE_APP_LINE_API,
-  baseURL: isDev ? '/line' : process.env.VUE_APP_WOLF_API,
+  baseURL: isDev ? '/line' : process.env.VUE_APP_LINE_API,
   timeout: 50000,
 })
 

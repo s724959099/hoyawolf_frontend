@@ -11,8 +11,16 @@ module.exports = {
     disableHostCheck: true,
     port: 9527,
     open: true,
-    hot: true,
+    // hot: true,
     proxy: {
+      '/api': {
+        target: process.env.VUE_APP_WOLF_API,
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '/api': '',
+        },
+      },
       '/line': {
         target: process.env.VUE_APP_LINE_API,
         changeOrigin: true,

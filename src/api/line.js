@@ -1,4 +1,5 @@
 import { lineRequest, notifyRequest } from '@/utils/line-request'
+import request from '@/utils/request'
 
 // 取得 Access Token
 export function getLineAccessTokenAPI(data) {
@@ -20,6 +21,15 @@ export function getNotifyAccessTokenAPI(data) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
+    data,
+  })
+}
+
+// 向後端請求
+export function lineRedirectAPI(data) {
+  return request({
+    url: '/api/line/redirect',
+    method: 'get',
     data,
   })
 }

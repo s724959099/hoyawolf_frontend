@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const isDev = process.env.NODE_ENV === 'development'
 const service = axios.create({
-  baseURL: isDev ? '/line' : process.env.VUE_APP_WOLF_API,
+  baseURL: isDev ? '/api' : process.env.VUE_APP_WOLF_API,
   timeout: 50000,
 })
 
@@ -22,8 +22,7 @@ service.interceptors.request.use(
 // 回應
 service.interceptors.response.use(
   (response) => {
-    const { res } = response.data
-    return res
+    return response
   },
   (error) => {
     console.error(error) // for debug
