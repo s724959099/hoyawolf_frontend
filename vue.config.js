@@ -16,7 +16,7 @@ module.exports = {
       '/api': {
         target: process.env.VUE_APP_WOLF_API,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         pathRewrite: {
           '/api': '',
         },
@@ -24,7 +24,7 @@ module.exports = {
       '/line': {
         target: process.env.VUE_APP_LINE_API,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         pathRewrite: {
           '/line': '',
         },
@@ -32,7 +32,7 @@ module.exports = {
       '/notify': {
         target: process.env.VUE_APP_LINE_NOTIFY_API,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         pathRewrite: {
           '/notify': '',
         },

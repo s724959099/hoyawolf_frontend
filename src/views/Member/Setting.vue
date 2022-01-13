@@ -43,7 +43,7 @@ export default {
   },
 
   mounted() {
-    // if (this.query) this.getData()
+    if (this.query) this.getData()
   },
 
   methods: {
@@ -68,6 +68,7 @@ export default {
 
         const result = await getLineAccessTokenAPI(params)
 
+        console.log(result)
         if (result) {
           const data = {
             ...result.data,
@@ -108,8 +109,7 @@ export default {
 
     // 請求 Notify 授權
     async notifyEvent() {
-      const params = { redirect_uri: `${location.origin}/member/setting` }
-      const result = await lineRedirectAPI(params)
+      const result = await lineRedirectAPI(`${location.origin}/member/setting`)
       console.log(result)
       window.open(result, 'self')
       // let url = 'https://notify-bot.line.me/oauth/authorize?'

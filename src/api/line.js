@@ -25,11 +25,10 @@ export function getNotifyAccessTokenAPI(data) {
   })
 }
 
-// 向後端請求
-export function lineRedirectAPI(data) {
+// 向後端請求 Line Redirect
+export function lineRedirectAPI(url) {
   return request({
-    url: '/api/line/redirect',
+    url: `/api/line/redirect?redirect_url=${url}`,
     method: 'get',
-    data,
   })
 }
