@@ -24,9 +24,6 @@ export function getUserInfo({ user_id }) {
 export function getUserAllOsNotifyAPI({ token_id }) {
   return request({
     url: `/api/user/token?${token_id}`,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
     method: 'delete',
   })
 }

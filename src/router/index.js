@@ -20,13 +20,17 @@ const routes = [
     },
   },
   {
-    path: '/member/notify',
+    path: '/member/auth',
     name: 'MemberNotify',
     component: () =>
       import(/* webpackChunkName: "member" */ '../views/Member/Notify.vue'),
     meta: {
       needLogin: true,
     },
+  },
+  {
+    path: '*',
+    component: () => import('@/views/Error/404'),
   },
 ]
 
