@@ -12,7 +12,7 @@ export function registerOpenseaNotifyAPI(data) {
 // 取得該 User 所有的 opensea 推播通知
 export function getUserInfoAPI(user_id) {
   return request({
-    url: `/api/user/info/${user_id}`,
+    url: `/api/user/info/?user_id=${user_id}`,
     method: 'get',
   })
 }

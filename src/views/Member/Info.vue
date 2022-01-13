@@ -12,7 +12,7 @@
           color="cyan lighten-2 white--text"
           large
           elevation="2"
-          @click="registerOpenseaNotify"
+          @click="getUserInfo"
         >
           取得所有訂閱資訊
         </v-btn>
@@ -28,7 +28,7 @@
             color="cyan lighten-2 white--text"
             x-large
             elevation="2"
-            @click="getUserInfo"
+            @click="registerOpenseaNotify(item.collection)"
           >
             訂閱
           </v-btn>
@@ -75,18 +75,14 @@ export default {
       console.log(result)
     },
 
-    async registerOpenseaNotify(item = 'hoyawolf') {
+    async registerOpenseaNotify(item = '') {
       const params = {
         collection: item,
         user_id: this.info.idTokenDecode.sub,
         access_token: this.notify,
       }
+      // TODO: 跨域問題 Cors Errorr
       console.log(params)
-      // {
-      //   "collection": "hoyawolf",
-      //   "user_id": "U8ea71e5a0df64962455326cf855ff72b",
-      //   "access_token": "CyfKxO3lhJB7iZxKEtEO7fLNJShbl8bPqBKxtULAocR"
-      // }
       const result = await registerOpenseaNotifyAPI(params)
       console.log(result)
     },

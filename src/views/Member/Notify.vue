@@ -6,7 +6,7 @@
 
       <v-card-text class="d-flex justify-center align-center flex-column">
         <div class="text-center gray--text mt-3 mb-3">
-          追蹤喜愛的 NFT項目，主動用Line通知
+          追蹤喜愛的 NFT 項目，主動用Line通知
         </div>
         <v-btn
           v-if="!notify"
@@ -62,8 +62,7 @@ export default {
 
     // [Step1] 請求 Notify 授權
     async lineRedirect() {
-      const url = `${location.origin}/member/auth`
-      window.open(lineRedirectAPI(url))
+      window.open(lineRedirectAPI(`${location.origin}/member/auth`))
     },
 
     async deleteUserToken() {

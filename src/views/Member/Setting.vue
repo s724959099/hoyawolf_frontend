@@ -18,8 +18,6 @@
             :alt="info.idTokenDecode.name"
           />
         </v-avatar>
-
-        <v-btn elevation="2" @click="register">測試註冊opensea地板 </v-btn>
       </v-card-text>
     </v-card>
   </v-container>
@@ -32,7 +30,6 @@ import jwtDecode from 'jwt-decode'
 import { mapState, mapMutations } from 'vuex'
 // API
 import { getLineAccessTokenAPI } from '@/api/line'
-import { registerOpenseaNotify } from '@/api/user'
 
 export default {
   name: 'MemberSetting',
@@ -65,7 +62,6 @@ export default {
     // 請求使用者資料，接網址的參數
     async getData() {
       try {
-        console.error('getData')
         this.query = this.$route.query
 
         const params = Qs.stringify({
@@ -94,17 +90,6 @@ export default {
         console.error(error)
         alert(error)
       }
-    },
-
-    async register() {
-      const params = Qs.stringify({
-        collection: 'hoyawolf',
-        user_id: this.info.idTokenDecode.sub,
-        access_token: 'yLhQXmexl19M0ogNzVdFxPGAk9et0Lmj4dxXDMlLaIe',
-      })
-
-      const result = await registerOpenseaNotify(params)
-      console.log(result)
     },
   },
 }
