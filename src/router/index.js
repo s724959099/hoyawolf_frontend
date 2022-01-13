@@ -29,6 +29,15 @@ const routes = [
     },
   },
   {
+    path: '/member/info',
+    name: 'MemberInfo',
+    component: () =>
+      import(/* webpackChunkName: "member" */ '../views/Member/Info.vue'),
+    meta: {
+      needLogin: true,
+    },
+  },
+  {
     path: '*',
     component: () => import('@/views/Error/404'),
   },
