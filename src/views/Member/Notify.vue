@@ -23,43 +23,77 @@
 <script>
 // Utils
 import Qs from 'qs'
+import { mapState, mapActions } from 'vuex'
 // API
-import { lineRedirectAPI, getNotifyAccessTokenAPI } from '@/api/line'
+import {
+  lineRedirectAPI,
+  getNotifyAccessTokenAPI,
+  getUserNotifyAccessTokenAPI,
+} from '@/api/line'
+// getNotifyAuthorizationAPI,
 
 export default {
   name: 'MemberNotify',
   data() {
-    return {}
+    return {
+      query: {},
+      url: `${location.origin}/member/notify`,
+    }
+  },
+
+  computed: {
+    ...mapState(['isLogin', 'info', 'notify']),
+  },
+
+  mounted() {
+    // if (this.query && this.isLogin && this.notify) this.getData()
   },
 
   methods: {
-    // [Step1] 請求 Notify 授權
-    async notifyEvent() {
-      const result = await lineRedirectAPI(`${location.origin}/member/notify`)
-      console.log(result)
-      window.open(result, 'self')
-      // let url = 'https://notify-bot.line.me/oauth/authorize?'
+    ...mapActions({
+      setNotify: 'SET_NOTIFY',
+    }),
 
-      // url += 'response_type=code'
-      // // url += `&client_id=${process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID}`
-      // url += `&client_id=p8OqBWia6p1imkzQrjpsUs`
-      // url += `&redirect_uri=${process.env.VUE_APP_LINE_REDIRECT_URL}` // 要接收回傳訊息的網址
-      // url += `&state=${this.stateCode}`
-      // url += '&scope=notify'
-
-      // window.open(url, 'self')
-    },
-
-    async step1() {
-      // response_type=code&scope=notify&response_mode=form_post&client_id=<放上你的Client_id>&redirect_uri=<放上你的RedirectURI>&state=<放一個隨機產生的亂碼>
+    // 請求 Notify 授權
+    async test1() {
       let loginUrl = 'https://notify-bot.line.me/oauth/authorize?'
       loginUrl += 'response_type=code'
       loginUrl += `&client_id=${process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID}`
-      loginUrl += `&redirect_uri=${process.env.VUE_APP_LINE_NOTIFY_REDIRECT_URL}`
-      loginUrl += `&scope=notify`
-      loginUrl += `&state=bff10f539a160bc044304007f2a5d8d0`
+      loginUrl += `&redirect_uri=https://localhost:9527` // 要接收回傳訊息的網址
+      loginUrl += `&state=123098sdfgklaesr29348`
+      loginUrl += '&scope=notify'
 
       window.open(loginUrl, '_self') // 轉跳到該網址
+    },
+
+    // [Step1] 請求 Notify 授權
+    async notifyEvent() {
+      console.log(process.env.NODE_ENV)
+      // const url =
+      //   process.env.NODE_ENV === 'development'
+      //     ? `https://29e0-125-227-188-115.ngrok.io/member/notify`
+      //     : `${location.origin}/member/notify`
+      const url = `${location.origin}`
+      // const url = `${process.env.VUE_APP_LINE_NOTIFY_REDIRECT_URL}`
+      console.log('url', url)
+      window.open(lineRedirectAPI(url))
+    },
+
+    async getData() {
+      try {
+        this.query = this.$route.query
+
+        const result = await getUserNotifyAccessTokenAPI(
+          this.query.code,
+          this.url
+        )
+        console.log(result)
+
+        this.setNotify(result)
+      } catch (error) {
+        console.error(error)
+        alert(error)
+      }
     },
 
     // [Step2] 取得使用者 Notify Token
