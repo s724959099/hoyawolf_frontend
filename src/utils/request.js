@@ -1,8 +1,7 @@
 import axios from 'axios'
 
-const isDev = process.env.NODE_ENV === 'development'
 const service = axios.create({
-  baseURL: isDev ? '/api' : process.env.VUE_APP_WOLF_API,
+  baseURL: process.env.VUE_APP_WOLF_API,
   timeout: 50000,
 })
 
@@ -12,6 +11,11 @@ service.interceptors.request.use(
     return config
   },
   (request) => {
+    console.log(
+      `%cResponse:%c${request}`,
+      'background:yellow; padding: 3px;',
+      'padding: 3px;'
+    )
     return request
   },
   (error) => {
@@ -33,6 +37,8 @@ service.interceptors.response.use(
   },
   (error) => {
     console.error(error) // for debug
+
+    alert(error)
     return Promise.reject(error)
   }
 )
