@@ -13,15 +13,13 @@
         <v-btn v-if="!isLogin" elevation="2" @click="loginEvent()"
           >Line登入
         </v-btn>
+        <v-btn elevation="2" @click="signOut">清空資料 </v-btn>
+        <v-btn elevation="2" @click="getVuex">取得vuex </v-btn>
 
         <div v-if="isLogin" @click.stop="drawer = !drawer">
           <v-icon large color="cyan lighten-2">
             mdi-message-alert-outline
           </v-icon>
-          <!-- <v-avatar v-bind="attrs" v-on="on">
-            :src="info.idTokenDecode.picture"
-            <img :src="logo" :alt="info.name" />
-          </v-avatar> -->
         </div>
       </v-container>
     </v-app-bar>
@@ -45,6 +43,17 @@
           </router-link>
 
           <router-link :to="{ name: 'MemberSetting' }">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-message-alert-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="'帳號設定'"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+
+          <router-link :to="{ name: 'MemberNotify' }">
             <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-message-alert-outline</v-icon>
@@ -75,7 +84,7 @@
 
 <script>
 // Utils
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'App',
@@ -97,7 +106,13 @@ export default {
     ...mapState(['isLogin', 'info']),
   },
 
+  created() {},
+
   methods: {
+    ...mapMutations({
+      clearData: 'CLEAR_DATA',
+    }),
+
     // 請求登入授權
     loginEvent() {
       // 必填
@@ -118,7 +133,15 @@ export default {
     },
 
     // 登出
-    signOut() {},
+    signOut() {
+      this.clearData()
+      console.log(JSON.stringify(this.$store.state))
+      console.log(localStorage.getItem('wolf'))
+    },
+
+    getVuex() {
+      console.log(JSON.stringify(this.$store.state))
+    },
   },
 }
 </script>

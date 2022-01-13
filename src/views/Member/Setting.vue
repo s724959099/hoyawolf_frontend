@@ -6,15 +6,14 @@
 
       <v-card-text class="d-flex justify-center align-center flex-column">
         <div class="text-center gray--text mt-3 mb-3">
-          追蹤喜愛的 NFT項目，主動用Line通知
+          {{ info.idTokenDecode.name }}，歡迎使用 Hoya 工具
         </div>
-        <v-btn
-          color="cyan lighten-2 white--text"
-          x-large
-          elevation="2"
-          @click="notifyEvent()"
-          >開啟Line通知
-        </v-btn>
+        <v-avatar>
+          <img
+            :src="info.idTokenDecode.picture"
+            :alt="info.idTokenDecode.name"
+          />
+        </v-avatar>
       </v-card-text>
     </v-card>
   </v-container>
@@ -24,13 +23,9 @@
 // Utils
 import Qs from 'qs'
 import jwtDecode from 'jwt-decode'
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 // API
-import {
-  getLineAccessTokenAPI,
-  getNotifyAccessTokenAPI,
-  lineRedirectAPI,
-} from '@/api/line'
+import { getLineAccessTokenAPI, getNotifyAccessTokenAPI } from '@/api/line'
 
 export default {
   name: 'MemberSetting',
@@ -43,7 +38,11 @@ export default {
   },
 
   mounted() {
-    if (this.query) this.getData()
+    if (this.query && !this.isLogin) this.getData()
+  },
+
+  computed: {
+    ...mapState(['isLogin', 'info']),
   },
 
   methods: {
@@ -105,23 +104,6 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    },
-
-    // 請求 Notify 授權
-    async notifyEvent() {
-      const result = await lineRedirectAPI(`${location.origin}/member/setting`)
-      console.log(result)
-      window.open(result, 'self')
-      // let url = 'https://notify-bot.line.me/oauth/authorize?'
-
-      // url += 'response_type=code'
-      // // url += `&client_id=${process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID}`
-      // url += `&client_id=p8OqBWia6p1imkzQrjpsUs`
-      // url += `&redirect_uri=${process.env.VUE_APP_LINE_REDIRECT_URL}` // 要接收回傳訊息的網址
-      // url += `&state=${this.stateCode}`
-      // url += '&scope=notify'
-
-      // window.open(url, 'self')
     },
   },
 }

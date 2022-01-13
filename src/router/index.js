@@ -15,6 +15,18 @@ const routes = [
     name: 'MemberSetting',
     component: () =>
       import(/* webpackChunkName: "member" */ '../views/Member/Setting.vue'),
+    meta: {
+      needLogin: true,
+    },
+  },
+  {
+    path: '/member/notify',
+    name: 'MemberNotify',
+    component: () =>
+      import(/* webpackChunkName: "member" */ '../views/Member/Notify.vue'),
+    meta: {
+      needLogin: true,
+    },
   },
 ]
 
