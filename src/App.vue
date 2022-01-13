@@ -13,8 +13,8 @@
         <v-btn v-if="!isLogin" elevation="2" @click="loginEvent()"
           >Line登入
         </v-btn>
-        <v-btn elevation="2" @click="signOut">清空資料 </v-btn>
-        <v-btn elevation="2" @click="getVuex">取得vuex </v-btn>
+        <v-btn v-if="isDev" elevation="2" @click="signOut">清空資料 </v-btn>
+        <v-btn v-if="isDev" elevation="2" @click="getVuex">取得vuex </v-btn>
 
         <div v-if="isLogin" @click.stop="drawer = !drawer">
           <v-icon large color="cyan lighten-2">
@@ -56,10 +56,21 @@
           <router-link :to="{ name: 'MemberNotify' }">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon>mdi-message-alert-outline</v-icon>
+                <v-icon>mdi-message-cog-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title v-text="'設定推播'"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+
+          <router-link :to="{ name: 'MemberInfo' }">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-message-cog-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="'我的追蹤'"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -79,15 +90,20 @@
     <v-main class="lighten-3">
       <router-view></router-view>
     </v-main>
+
+    <Footer />
   </v-app>
 </template>
 
 <script>
 // Utils
 import { mapState, mapMutations } from 'vuex'
+// Component
+import Footer from '@/views/Footer.vue'
 
 export default {
   name: 'App',
+  components: { Footer },
 
   data: () => ({
     stateCode: 'bff10f539a160bc044304007f2a5d8d0',
@@ -102,11 +118,15 @@ export default {
     },
   },
 
+  mounted() {},
+
   computed: {
     ...mapState(['isLogin', 'info']),
-  },
 
-  created() {},
+    isDev() {
+      return process.env.NODE_ENV === 'development'
+    },
+  },
 
   methods: {
     ...mapMutations({
@@ -135,8 +155,8 @@ export default {
     // 登出
     signOut() {
       this.clearData()
-      console.log(JSON.stringify(this.$store.state))
-      console.log(localStorage.getItem('wolf'))
+      this.getVuex()
+      this.$router.push({ path: '/' })
     },
 
     getVuex() {
