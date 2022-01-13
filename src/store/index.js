@@ -22,8 +22,9 @@ const store = new Vuex.Store({
   state: {
     isLogin: false,
     info: {},
-    notify: {}, // 存放 Notify 資料
+    notify: '', // 存放 Notify Access Token
   },
+
   mutations: {
     CHANGE_LOGIN(state, boolean) {
       state.isLogin = boolean
@@ -31,13 +32,13 @@ const store = new Vuex.Store({
     SET_USER_INFO(state, data = {}) {
       state.info = data
     },
-    SET_NOTIFY(state, data = {}) {
+    SET_NOTIFY(state, data = '') {
       state.notify = data
     },
     CLEAR_DATA(state) {
       state.isLogin = false
       state.info = {}
-      state.notify = {}
+      state.notify = ''
     },
   },
   actions: {},
