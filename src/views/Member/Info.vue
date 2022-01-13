@@ -75,9 +75,9 @@ export default {
       console.log(result)
     },
 
-    async registerOpenseaNotify(collection) {
+    async registerOpenseaNotify(item = 'hoyawolf') {
       const params = {
-        collection: 'hoyawolf',
+        collection: item,
         user_id: this.info.idTokenDecode.sub,
         access_token: this.notify,
       }
