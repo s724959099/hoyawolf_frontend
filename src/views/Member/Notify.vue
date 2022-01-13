@@ -12,7 +12,7 @@
           color="cyan lighten-2 white--text"
           x-large
           elevation="2"
-          @click="notifyEvent()"
+          @click="notifyEvent"
           >開啟Line通知
         </v-btn>
       </v-card-text>
@@ -21,8 +21,10 @@
 </template>
 
 <script>
+// Utils
+import Qs from 'qs'
 // API
-import { lineRedirectAPI } from '@/api/line'
+import { lineRedirectAPI, getNotifyAccessTokenAPI } from '@/api/line'
 
 export default {
   name: 'MemberNotify',
@@ -31,7 +33,7 @@ export default {
   },
 
   methods: {
-    // 請求 Notify 授權
+    // [Step1] 請求 Notify 授權
     async notifyEvent() {
       const result = await lineRedirectAPI(`${location.origin}/member/notify`)
       console.log(result)
@@ -46,6 +48,40 @@ export default {
       // url += '&scope=notify'
 
       // window.open(url, 'self')
+    },
+
+    async step1() {
+      // response_type=code&scope=notify&response_mode=form_post&client_id=<放上你的Client_id>&redirect_uri=<放上你的RedirectURI>&state=<放一個隨機產生的亂碼>
+      let loginUrl = 'https://notify-bot.line.me/oauth/authorize?'
+      loginUrl += 'response_type=code'
+      loginUrl += `&client_id=${process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID}`
+      loginUrl += `&redirect_uri=${process.env.VUE_APP_LINE_NOTIFY_REDIRECT_URL}`
+      loginUrl += `&scope=notify`
+      loginUrl += `&state=bff10f539a160bc044304007f2a5d8d0`
+
+      window.open(loginUrl, '_self') // 轉跳到該網址
+    },
+
+    // [Step2] 取得使用者 Notify Token
+    async getNotifyToken() {
+      try {
+        const param = Qs.stringify({
+          grant_type: 'authorization_code',
+          code: this.query.code,
+          state: this.query.state,
+          redirect_uri: process.env.VUE_APP_LINE_REDIRECT_URL,
+          client_id: process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID,
+          client_secret: process.env.VUE_APP_LINE_CLIENT_SECTET,
+        })
+
+        const result = await getNotifyAccessTokenAPI(param)
+
+        if (result) {
+          this.setNotify(result.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
     },
   },
 }
