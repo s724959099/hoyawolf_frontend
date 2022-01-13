@@ -5,6 +5,9 @@ export function registerOpenseaNotify(data) {
   return request({
     url: `/api/line/opensea/register`,
     method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
     data,
   })
 }
@@ -21,6 +24,9 @@ export function getUserInfo({ user_id }) {
 export function getUserAllOsNotifyAPI({ token_id }) {
   return request({
     url: `/api/user/token?${token_id}`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
     method: 'delete',
   })
 }
