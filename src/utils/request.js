@@ -15,6 +15,7 @@ service.interceptors.request.use(
     return request
   },
   (error) => {
+    console.error(error)
     return Promise.reject(error)
   }
 )
@@ -22,6 +23,12 @@ service.interceptors.request.use(
 // 回應
 service.interceptors.response.use(
   (response) => {
+    console.log(
+      `%cResponse:%c${response.config.url}`,
+      'background:deepskyblue; padding: 3px;',
+      'padding: 3px;',
+      response.data
+    )
     return response
   },
   (error) => {
