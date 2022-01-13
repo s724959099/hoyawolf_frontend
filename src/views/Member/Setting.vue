@@ -6,14 +6,20 @@
 
       <v-card-text class="d-flex justify-center align-center flex-column">
         <div class="text-center gray--text mt-3 mb-3">
-          {{ info.idTokenDecode.name }}，歡迎使用 Hoya 工具
+          <span v-if="info.idTokenDecode && info.idTokenDecode.name">
+            {{ info.idTokenDecode.name }}
+          </span>
+          ，歡迎使用 Hoya 工具
         </div>
         <v-avatar>
           <img
+            v-if="info.idTokenDecode && info.idTokenDecode.picture"
             :src="info.idTokenDecode.picture"
             :alt="info.idTokenDecode.name"
           />
         </v-avatar>
+
+        <v-btn elevation="2" @click="register">測試註冊opensea地板 </v-btn>
       </v-card-text>
     </v-card>
   </v-container>
@@ -25,7 +31,8 @@ import Qs from 'qs'
 import jwtDecode from 'jwt-decode'
 import { mapState, mapMutations } from 'vuex'
 // API
-import { getLineAccessTokenAPI, getNotifyAccessTokenAPI } from '@/api/line'
+import { getLineAccessTokenAPI } from '@/api/line'
+import { registerOpenseaNotify } from '@/api/user'
 
 export default {
   name: 'MemberSetting',
@@ -38,7 +45,11 @@ export default {
   },
 
   mounted() {
-    if (this.query && !this.isLogin) this.getData()
+    if (this.query && !this.isLogin && Object.keys(this.info).length === 0) {
+      this.getData()
+    } else {
+      // this.$router.push(this.$route.path)
+    }
   },
 
   computed: {
@@ -51,10 +62,10 @@ export default {
       setUserInfo: 'SET_USER_INFO',
     }),
 
-    // 請求使用者資料
+    // 請求使用者資料，接網址的參數
     async getData() {
-      // 接網址的參數
       try {
+        console.error('getData')
         this.query = this.$route.query
 
         const params = Qs.stringify({
@@ -85,25 +96,15 @@ export default {
       }
     },
 
-    async getNotifyToken() {
-      try {
-        console.log(this.$route.query)
-        const param = Qs.stringify({
-          grant_type: 'authorization_code',
-          code: this.query.code,
-          redirect_uri: process.env.VUE_APP_LINE_REDIRECT_URL,
-          client_id: process.env.VUE_APP_LINE_NOTIFY_CLIENT_ID,
-          client_secret: process.env.VUE_APP_LINE_CLIENT_SECTET,
-        })
+    async register() {
+      const params = Qs.stringify({
+        collection: 'hoyawolf',
+        user_id: this.info.idTokenDecode.sub,
+        access_token: 'yLhQXmexl19M0ogNzVdFxPGAk9et0Lmj4dxXDMlLaIe',
+      })
 
-        const result = await getNotifyAccessTokenAPI(param)
-
-        if (result) {
-          this.setNotify(result.data)
-        }
-      } catch (error) {
-        console.error(error)
-      }
+      const result = await registerOpenseaNotify(params)
+      console.log(result)
     },
   },
 }

@@ -39,6 +39,7 @@ const store = new Vuex.Store({
       state.isLogin = false
       state.info = {}
       state.notify = ''
+      localStorage.clear()
     },
   },
   actions: {},

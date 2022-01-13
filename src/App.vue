@@ -10,11 +10,16 @@
 
         <v-spacer></v-spacer>
 
+        <v-btn v-if="isDev" elevation="2" class="mr-3" @click="signOut"
+          >清空資料
+        </v-btn>
+        <v-btn v-if="isDev" elevation="2" class="mr-3" @click="getVuex"
+          >取得vuex
+        </v-btn>
+
         <v-btn v-if="!isLogin" elevation="2" @click="loginEvent()"
           >Line登入
         </v-btn>
-        <v-btn v-if="isDev" elevation="2" @click="signOut">清空資料 </v-btn>
-        <v-btn v-if="isDev" elevation="2" @click="getVuex">取得vuex </v-btn>
 
         <div v-if="isLogin" @click.stop="drawer = !drawer">
           <v-icon large color="cyan lighten-2">
@@ -67,7 +72,7 @@
           <router-link :to="{ name: 'MemberInfo' }">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon>mdi-message-cog-outline</v-icon>
+                <v-icon>mdi-delete-empty-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title v-text="'我的追蹤'"></v-list-item-title>
