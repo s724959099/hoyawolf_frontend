@@ -12,18 +12,18 @@
           color="cyan lighten-2 white--text"
           large
           elevation="2"
-          @click="getUserInfo"
+          @click="getUserOrderItem"
         >
-          取得所有訂閱資訊
+          取得所有追蹤資訊
         </v-btn>
       </v-card-text>
     </v-card>
 
     <!-- 項目 -->
     <v-row>
-      <v-col cols="6" v-for="item in items" :key="item">
+      <!-- <v-col cols="6" v-for="item in opensea" :key="item">
         <v-card class="mt-10 pa-5">
-          <v-card-title>{{ item.collection }}</v-card-title>
+          <v-card-title>{{ item.name }}</v-card-title>
           <v-btn
             color="cyan lighten-2 white--text"
             large
@@ -32,6 +32,23 @@
           >
             訂閱
           </v-btn>
+        </v-card>
+      </v-col> -->
+      <v-col cols="6" v-for="item in opensea" :key="item">
+        <v-card class="mt-10 pa-5">
+          <v-card-title>{{ item.name }}</v-card-title>
+          <v-btn
+            color="cyan lighten-2 white--text"
+            large
+            elevation="2"
+            @click="deleteOpenseaNotify(item._id)"
+          >
+            取消訂閱
+          </v-btn>
+          <div class="text-center gray--text mt-3 mb-3">
+            當價格高於 {{ item.higher_price }} 時通知<br />
+            當價格低於 {{ item.lower_price }} 時通知
+          </div>
         </v-card>
       </v-col>
     </v-row>
@@ -42,7 +59,11 @@
 // Utils
 import { mapState, mapMutations } from 'vuex'
 // API
-import { getUserInfoAPI, registerOpenseaNotifyAPI } from '@/api/user'
+import {
+  deleteUserAPI,
+  getUserInfoAPI,
+  registerOpenseaNotifyAPI,
+} from '@/api/user'
 
 export default {
   name: 'MemberInfo',
@@ -53,6 +74,7 @@ export default {
           collection: 'hoyawolf',
         },
       ],
+      opensea: {},
     }
   },
 
@@ -66,24 +88,31 @@ export default {
     }),
 
     // 取得使用者所有訂閱項目
-    async getUserInfo() {
-      const result = await getUserInfoAPI(this.info.idTokenDecode.sub)
+    async getUserOrderItem() {
+      try {
+        const { data } = await getUserInfoAPI(this.info.idTokenDecode.sub)
+        this.opensea = data.opensea
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async registerOpenseaNotify({ name, lower_price, higher_price }) {
+      const params = {
+        collection: name,
+        user_id: this.info.idTokenDecode.sub,
+        access_token: this.notify,
+        lower_price: lower_price,
+        higher_price: higher_price,
+      }
+
+      const result = await registerOpenseaNotifyAPI(params)
       console.log(result)
     },
 
-    async registerOpenseaNotify(item = '') {
-      const params = {
-        collection: item,
-        user_id: this.info.idTokenDecode.sub,
-        access_token: this.notify,
-        lower_price: 1.35,
-        higher_price: 10,
-      }
-
-      // TODO: 跨域問題 Cors Errorr
-      console.log(params)
-      const result = await registerOpenseaNotifyAPI(params)
-      console.log(result)
+    // 取消訂閱
+    async deleteOpenseaNotify(id) {
+      await deleteUserAPI(id)
     },
   },
 }

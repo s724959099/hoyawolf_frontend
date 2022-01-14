@@ -34,7 +34,6 @@
 import { mapState, mapMutations } from 'vuex'
 // API
 import { lineRedirectAPI } from '@/api/line'
-import { deleteUserAPI } from '@/api/user'
 
 export default {
   name: 'MemberNotify',
@@ -66,8 +65,7 @@ export default {
     },
 
     async deleteUserToken() {
-      const result = await deleteUserAPI(this.info.idTokenDecode.sub)
-      console.log(result)
+      console.log('nothing')
     },
   },
 }
