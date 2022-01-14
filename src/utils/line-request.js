@@ -32,7 +32,7 @@ lineRequest.interceptors.response.use(
 )
 
 const notifyRequest = axios.create({
-  baseURL: isDev ? '/notify' : process.env.VUE_APP_WOLF_API,
+  baseURL: isDev ? '/notify' : process.env.VUE_APP_LINE_NOTIFY_API,
   timeout: 50000,
 })
 

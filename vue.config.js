@@ -14,13 +14,13 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
-      // '/api': {
-      //   target: process.env.VUE_APP_WOLF_API,
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '/api': '',
-      //   },
-      // },
+      '/api': {
+        target: process.env.VUE_APP_WOLF_API,
+        changeOrigin: true,
+        pathRewrite: {
+          '/api': '',
+        },
+      },
       '/line': {
         target: process.env.VUE_APP_LINE_API,
         changeOrigin: true,

@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: process.env.VUE_APP_WOLF_API,
+  // baseURL: process.env.VUE_APP_WOLF_API,
+  baseURL: '/api',
   timeout: 50000,
 })
 

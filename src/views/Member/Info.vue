@@ -26,7 +26,7 @@
           <v-card-title>{{ item.collection }}</v-card-title>
           <v-btn
             color="cyan lighten-2 white--text"
-            x-large
+            large
             elevation="2"
             @click="registerOpenseaNotify(item.collection)"
           >
@@ -60,10 +60,6 @@ export default {
     ...mapState(['isLogin', 'info', 'notify']),
   },
 
-  mounted() {
-    // this.getUserInfo()
-  },
-
   methods: {
     ...mapMutations({
       setNotify: 'SET_NOTIFY',
@@ -80,7 +76,10 @@ export default {
         collection: item,
         user_id: this.info.idTokenDecode.sub,
         access_token: this.notify,
+        lower_price: 1.35,
+        higher_price: 10,
       }
+
       // TODO: 跨域問題 Cors Errorr
       console.log(params)
       const result = await registerOpenseaNotifyAPI(params)
