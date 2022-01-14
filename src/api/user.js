@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 註冊 Opensea 地板價通知
 export function registerOpenseaNotifyAPI(data) {
   return request({
-    url: `/api/line/opensea/register`,
+    url: `/api/line/opensea/register/`,
     method: 'post',
     data,
   })
@@ -20,7 +20,7 @@ export function getUserInfoAPI(user_id) {
 // 刪除 User Token
 export function deleteUserAPI(token_id) {
   return request({
-    url: `/api/user/token/${token_id}`,
+    url: `/api/user/token/${token_id}/`,
     method: 'delete',
   })
 }
