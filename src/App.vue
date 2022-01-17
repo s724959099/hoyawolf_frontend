@@ -1,5 +1,7 @@
 <template>
   <v-app id="inspire">
+    <Alert :show="alert.show" :text="alert.text" :type="alert.type" />
+
     <v-app-bar app color="white" dark>
       <v-container class="py-0 fill-height">
         <v-avatar class="mr-10" color="grey darken-1" size="48">
@@ -10,10 +12,10 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn v-if="isDev" elevation="2" class="mr-3" @click="signOut"
+        <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="signOut"
           >清空資料
         </v-btn>
-        <v-btn v-if="isDev" elevation="2" class="mr-3" @click="getVuex"
+        <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="getVuex"
           >取得vuex
         </v-btn>
 
@@ -42,7 +44,7 @@
                 <v-icon>mdi-home-alert-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title v-text="'首頁'"></v-list-item-title>
+                <v-list-item-title v-text="'NFT追蹤'"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -65,17 +67,6 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title v-text="'設定推播'"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </router-link>
-
-          <router-link :to="{ name: 'MemberInfo' }">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-delete-empty-outline</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="'我的追蹤'"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -104,11 +95,12 @@
 // Utils
 import { mapState, mapMutations } from 'vuex'
 // Component
+import Alert from '@/components/Alert.vue'
 import Footer from '@/views/Footer.vue'
 
 export default {
   name: 'App',
-  components: { Footer },
+  components: { Footer, Alert },
 
   data: () => ({
     stateCode: 'bff10f539a160bc044304007f2a5d8d0',
@@ -123,14 +115,8 @@ export default {
     },
   },
 
-  mounted() {},
-
   computed: {
-    ...mapState(['isLogin', 'info']),
-
-    isDev() {
-      return process.env.NODE_ENV === 'development'
-    },
+    ...mapState(['isLogin', 'info', 'alert']),
   },
 
   methods: {

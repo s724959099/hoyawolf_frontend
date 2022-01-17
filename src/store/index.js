@@ -23,6 +23,13 @@ const store = new Vuex.Store({
     isLogin: false,
     info: {},
     notify: '', // 存放 Notify Access Token
+
+    // 通知訊息
+    alert: {
+      show: false,
+      text: '',
+      type: '',
+    },
   },
 
   mutations: {
@@ -41,8 +48,29 @@ const store = new Vuex.Store({
       state.notify = ''
       localStorage.clear()
     },
+    SET_ALERT(state, { text, type, show }) {
+      state.alert.text = text
+      state.alert.type = type
+      state.alert.show = show
+    },
   },
-  actions: {},
+  actions: {
+    closeAlert({ commit }) {
+      const alertData = {
+        text: '',
+        type: '',
+        show: false,
+      }
+      commit('SET_ALERT', alertData)
+    },
+    showAlert({ commit, dispatch }, alertData) {
+      commit('SET_ALERT', alertData)
+
+      setTimeout(() => {
+        dispatch('closeAlert')
+      }, 2500)
+    },
+  },
 })
 
 export default store
