@@ -16,6 +16,7 @@
           @click="lineRedirect"
           >開啟Line通知
         </v-btn>
+        <v-btn v-else disabled elevation="2">已開啟Line推播</v-btn>
       </v-card-text>
     </v-card>
   </v-container>

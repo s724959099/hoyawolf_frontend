@@ -4,14 +4,13 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import store from './store'
 import './permission'
+import Console from './utils/console'
+import './style/index.scss' // css樣式
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
-import Console from './utils/console'
-import './style/index.scss' // css樣式
 
 Vue.prototype.$isDev = () => process.env.NODE_ENV === 'development'
-
 /**
  * dev 模式下才會印出 console
  * this.$log(), this.$error(), this.$warn()
@@ -24,7 +23,6 @@ Object.keys(Console).forEach((consoleEvents) => {
       return Console[consoleEvents](...params)
   }
 })
-
 Vue.config.productionTip = false
 
 new Vue({
