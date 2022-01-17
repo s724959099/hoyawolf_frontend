@@ -1,16 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import vuetify from './plugins/vuetify'
 import store from './store'
+import vuetify from './plugins/vuetify'
+import Console from '@/utils/console'
 import './permission'
-import Console from './utils/console'
 import './style/index.scss' // css樣式
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
 
-Vue.prototype.$isDev = () => process.env.NODE_ENV === 'development'
 /**
  * dev 模式下才會印出 console
  * this.$log(), this.$error(), this.$warn()
@@ -19,15 +15,21 @@ Vue.prototype.$isDev = () => process.env.NODE_ENV === 'development'
  */
 Object.keys(Console).forEach((consoleEvents) => {
   Vue.prototype[consoleEvents] = (...params) => {
-    if (process.env.VUE_APP_CONSOLE === 'true')
+    if (process.env.VUE_APP_CONSOLE === 'true') {
       return Console[consoleEvents](...params)
+    }
   }
 })
+
+Vue.prototype.$isDev = () => process.env.NODE_ENV === 'development'
+
 Vue.config.productionTip = false
 
-new Vue({
+const vue = new Vue({
   router,
   vuetify,
   store,
   render: (h) => h(App),
 }).$mount('#app')
+
+export default vue

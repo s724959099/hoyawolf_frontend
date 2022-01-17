@@ -68,7 +68,19 @@ const store = new Vuex.Store({
 
       setTimeout(() => {
         dispatch('closeAlert')
-      }, 2500)
+      }, 3500)
+    },
+
+    showError({ commit, dispatch }, text) {
+      commit('SET_ALERT', {
+        show: true,
+        type: 'error',
+        text: `發生錯誤：${text}`,
+      })
+
+      setTimeout(() => {
+        dispatch('closeAlert')
+      }, 3500)
     },
   },
 })

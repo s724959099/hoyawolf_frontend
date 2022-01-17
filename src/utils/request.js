@@ -1,6 +1,7 @@
-import Vue from 'vue'
 import axios from 'axios'
+import Vue from '../main'
 
+// --------- API實體 ---------
 const service = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
@@ -32,7 +33,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     Vue.$log(
-      `%cResponse:%c${response.config.url}`,
+      `%c✅ Response:%c${response.config.url}`,
       'background:deepskyblue; padding: 3px;',
       'padding: 3px;',
       response.data
