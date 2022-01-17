@@ -42,6 +42,7 @@ export function lineRedirectAPI(url) {
   return `${process.env.VUE_APP_WOLF_API}/api/line/redirect?redirect_uri=${url}&state=913458sadg123`
 }
 
+// [未使用]
 // [後端] [Step2] 拿 code 取得 User Notify Access Token
 export function getUserNotifyAccessTokenAPI(code) {
   return request({
