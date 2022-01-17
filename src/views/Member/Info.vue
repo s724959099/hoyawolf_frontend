@@ -93,7 +93,7 @@ export default {
         const { data } = await getUserInfoAPI(this.info.idTokenDecode.sub)
         this.opensea = data.opensea
       } catch (error) {
-        console.error(error)
+        this.$error(error)
       }
     },
 
@@ -107,7 +107,7 @@ export default {
       }
 
       const result = await registerOpenseaNotifyAPI(params)
-      console.log(result)
+      this.$log(result)
     },
 
     // 取消訂閱

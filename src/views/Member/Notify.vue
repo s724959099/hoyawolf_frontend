@@ -16,14 +16,6 @@
           @click="lineRedirect"
           >開啟Line通知
         </v-btn>
-        <v-btn
-          v-else
-          color="red lighten-2 white--text"
-          x-large
-          elevation="2"
-          @click="deleteUserToken"
-          >關閉Line通知
-        </v-btn>
       </v-card-text>
     </v-card>
   </v-container>
@@ -62,10 +54,6 @@ export default {
     // [Step1] 請求 Notify 授權
     async lineRedirect() {
       window.open(lineRedirectAPI(`${location.origin}/member/auth`))
-    },
-
-    async deleteUserToken() {
-      console.log('nothing')
     },
   },
 }

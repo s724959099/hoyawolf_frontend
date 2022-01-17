@@ -165,7 +165,7 @@ export default {
     },
 
     getVuex() {
-      console.log(JSON.stringify(this.$store.state))
+      this.$log(JSON.stringify(this.$store.state))
     },
   },
 }

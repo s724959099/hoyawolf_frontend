@@ -44,8 +44,6 @@ export default {
   mounted() {
     if (this.query && !this.isLogin && Object.keys(this.info).length === 0) {
       this.getData()
-    } else {
-      // this.$router.push(this.$route.path)
     }
   },
 
@@ -74,7 +72,7 @@ export default {
 
         const result = await getLineAccessTokenAPI(params)
 
-        console.log(result)
+        this.$log(result)
         if (result) {
           const data = {
             ...result.data,
@@ -87,7 +85,7 @@ export default {
         }
       } catch (error) {
         this.changeLoginStatus(false)
-        console.error(error)
+        this.$error(error)
         alert(error)
       }
     },

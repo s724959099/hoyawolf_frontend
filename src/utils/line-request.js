@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import axios from 'axios'
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -25,8 +26,7 @@ lineRequest.interceptors.response.use(
     return response
   },
   (error) => {
-    console.error(error) // for debug
-    alert(error)
+    Vue.$error('DEBUG: ⛔ 請求發生錯誤：', error)
     return Promise.reject(error)
   }
 )

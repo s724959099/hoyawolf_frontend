@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import axios from 'axios'
 
 const service = axios.create({
@@ -14,7 +15,7 @@ service.interceptors.request.use(
     return config
   },
   (request) => {
-    console.log(
+    Vue.$log(
       `%cResponse:%c${request}`,
       'background:yellow; padding: 3px;',
       'padding: 3px;'
@@ -22,7 +23,7 @@ service.interceptors.request.use(
     return request
   },
   (error) => {
-    console.error(error)
+    Vue.$error(error)
     return Promise.reject(error)
   }
 )
@@ -30,7 +31,7 @@ service.interceptors.request.use(
 // 回應
 service.interceptors.response.use(
   (response) => {
-    console.log(
+    Vue.$log(
       `%cResponse:%c${response.config.url}`,
       'background:deepskyblue; padding: 3px;',
       'padding: 3px;',
@@ -39,9 +40,7 @@ service.interceptors.response.use(
     return response
   },
   (error) => {
-    console.error(error) // for debug
-
-    alert(error)
+    Vue.$error('DEBUG: ⛔ 請求發生錯誤：', error)
     return Promise.reject(error)
   }
 )
