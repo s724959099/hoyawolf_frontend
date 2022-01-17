@@ -8,6 +8,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 import Console from './utils/console'
+import './style/index.scss' // css樣式
 
 Vue.prototype.$isDev = () => process.env.NODE_ENV === 'development'
 

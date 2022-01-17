@@ -6,10 +6,12 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn v-for="icon in icons" :key="icon" class="mx-4" dark icon>
-          <v-icon size="24px">
-            {{ icon }}
-          </v-icon>
+        <v-btn v-for="item in items" :key="item.url" class="mx-4" dark icon>
+          <a :href="item.url" target="_blank">
+            <v-icon size="24px">
+              {{ item.icon }}
+            </v-icon>
+          </a>
         </v-btn>
       </v-card-title>
 
@@ -24,7 +26,28 @@
 <script>
 export default {
   data: () => ({
-    icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
+    items: [
+      {
+        icon: 'mdi-web',
+        url: 'https://newecommerce.clickfunnels.com/optin1640080013393',
+      },
+      // {
+      //   icon: 'mdi-wan',
+      //   url: 'https://opensea.io/collection/hoyawolf',
+      // },
+      {
+        icon: 'mdi-youtube',
+        url: 'https://www.youtube.com/user/0TonyTien0',
+      },
+      {
+        icon: 'mdi-discord',
+        url: 'https://discord.com/invite/t4thSgHCu7',
+      },
+      {
+        icon: 'mdi-instagram',
+        url: 'https://www.instagram.com/hoya_wolf_nft/',
+      },
+    ],
   }),
 }
 </script>
