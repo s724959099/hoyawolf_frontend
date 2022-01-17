@@ -68,7 +68,7 @@ const store = new Vuex.Store({
 
       setTimeout(() => {
         dispatch('closeAlert')
-      }, 3500)
+      }, 3000)
     },
 
     showError({ commit, dispatch }, text) {
@@ -80,7 +80,7 @@ const store = new Vuex.Store({
 
       setTimeout(() => {
         dispatch('closeAlert')
-      }, 3500)
+      }, 3000)
     },
   },
 })

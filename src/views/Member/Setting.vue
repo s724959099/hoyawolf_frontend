@@ -7,9 +7,9 @@
       <v-card-text class="d-flex justify-center align-center flex-column">
         <div class="text-center gray--text mt-3 mb-3">
           <span v-if="info.idTokenDecode && info.idTokenDecode.name">
-            {{ info.idTokenDecode.name }}
+            {{ info.idTokenDecode.name }}，
           </span>
-          ，歡迎使用 Hoya 追蹤 Opensea 工具
+          歡迎使用 Hoya 追蹤 Opensea 工具
         </div>
         <v-avatar>
           <img
@@ -27,7 +27,7 @@
 // Utils
 import Qs from 'qs'
 import jwtDecode from 'jwt-decode'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 // API
 import { getLineAccessTokenAPI } from '@/api/line'
 
@@ -42,8 +42,21 @@ export default {
   },
 
   mounted() {
-    if (this.query && !this.isLogin && Object.keys(this.info).length === 0) {
+    console.log(Object.keys(this.query))
+    if (
+      Object.keys(this.$route.query).length !== 0 &&
+      !this.isLogin &&
+      Object.keys(this.info).length === 0
+    ) {
       this.getData()
+    }
+
+    if (!this.isLogin) {
+      this.showAlert({
+        show: true,
+        type: 'error',
+        text: '請先登入',
+      })
     }
   },
 
@@ -56,6 +69,7 @@ export default {
       changeLoginStatus: 'CHANGE_LOGIN',
       setUserInfo: 'SET_USER_INFO',
     }),
+    ...mapActions(['showAlert']),
 
     // 請求使用者資料，接網址的參數
     async getData() {

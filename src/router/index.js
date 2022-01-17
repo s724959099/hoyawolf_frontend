@@ -11,13 +11,15 @@ const routes = [
     component: Home,
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: Home,
+  },
+  {
     path: '/member/setting',
     name: 'MemberSetting',
     component: () =>
       import(/* webpackChunkName: "member" */ '../views/Member/Setting.vue'),
-    meta: {
-      needLogin: true,
-    },
   },
   {
     path: '/member/auth',
@@ -25,7 +27,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "member" */ '../views/Member/Notify.vue'),
     meta: {
-      needLogin: true,
+      requiresAuth: true,
     },
   },
   {
@@ -34,12 +36,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "member" */ '../views/Member/Info.vue'),
     meta: {
-      needLogin: true,
+      requiresAuth: true,
     },
   },
   {
     path: '*',
-    component: () => import('@/views/Error/404'),
+    redirect: '/',
   },
 ]
 

@@ -1,5 +1,5 @@
-import Vue from 'vue'
 import axios from 'axios'
+import Vue from '../main'
 const isDev = process.env.NODE_ENV === 'development'
 
 const lineRequest = axios.create({
