@@ -4,27 +4,39 @@
       <v-card-title>開始追蹤喜愛的 NFT 項目</v-card-title>
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="d-flex justify-center align-center flex-column">
-        <h2 class="cyan--text mb-2">使用說明</h2>
+        <h2 class="black--text mb-2">使用說明</h2>
         <v-divider class="mx-4"></v-divider>
         <div>
-          項目名稱：請填寫opensea網址最後一截單字
+          <span class="subtitle-2 black--text">
+            NFT名稱：請填寫opensea網址最後一截單字
+          </span>
           <ul>
             <li>
-              例如：網址是https://opensea.io/collection/
+              例如網址是 https://opensea.io/collection/
               <strong class="red--text">hoyawolf</strong>
-              ，項目名稱填「hoyawolf」
+              ，NFT名稱填「hoyawolf」
             </li>
+          </ul>
+          <span class="subtitle-2 black--text">
+            最低價格：當項目低於某價格，將推播通知
+          </span>
+          <ul>
             <li>
               若想要追蹤
               <span class="red--text">hoyawolf</span>
               opensea價格<strong class="red--text">低於 1.6</strong>
-              ，則設定最低價格 1.6
+              ，則設定最低價格 1.6，當價格低於 1.6 將通知
             </li>
+          </ul>
+          <span class="subtitle-2 black--text">
+            最高價格：當項目高於某價格，將推播通知
+          </span>
+          <ul>
             <li>
               若想要追蹤
               <span class="red--text">hoyawolf</span>
-              opensea價格<strong class="red--text">高於2.5</strong>
-              ，則設定最高價格 2.5
+              opensea價格<strong class="red--text">高於 2.5</strong>
+              ，則設定最高價格 2.5，當價格超過 2.5 將通知
             </li>
             <li>
               最低、最高價為選填，若皆不設定，每五分鐘監聽，Opensea有變動會Line推播
@@ -32,6 +44,7 @@
           </ul>
         </div>
       </v-card-text>
+
       <!-- Form -->
       <v-form v-model="valid" ref="form">
         <v-container>
@@ -40,8 +53,7 @@
               <v-text-field
                 v-model="form.collection"
                 :rules="rules.name"
-                :counter="10"
-                label="項目名稱"
+                label="NFT名稱"
                 required
               ></v-text-field>
             </v-col>
@@ -82,24 +94,18 @@
     <v-row class="mt-5">
       <v-col cols="12">
         <v-card elevation="2" class="pa-10">
-          <div class="text-center gray--text mt-3 mb-3">已追蹤的 NFT 項目</div>
+          <v-card-title>已追蹤的 NFT 項目</v-card-title>
+          <v-divider class="mx-4"></v-divider>
           <v-data-table
             :headers="headers"
             :items="opensea"
             :items-per-page="10"
             class="elevation-2 mb-10"
-            :footer-props="{
-              showFirstLastPage: true,
-              firstIcon: 'mdi-arrow-collapse-left',
-              lastIcon: 'mdi-arrow-collapse-right',
-              prevIcon: 'mdi-minus',
-              nextIcon: 'mdi-plus',
-              'items-per-page-text': '一頁幾筆',
-            }"
+            :footer-props="footerProps"
           >
             <template v-slot:item.url="{ item }">
               <a :href="item.url" target="_blank" rel="noopener noreferrer"
-                >Opensea連結</a
+                >Opensea</a
               >
             </template>
 
@@ -135,11 +141,16 @@ export default {
     return {
       opensea: [],
       valid: false,
-      form: {
-        collection: '',
-        lower_price: null,
-        higher_price: null,
+
+      footerProps: {
+        showFirstLastPage: true,
+        firstIcon: 'mdi-arrow-collapse-left',
+        lastIcon: 'mdi-arrow-collapse-right',
+        prevIcon: 'mdi-minus',
+        nextIcon: 'mdi-plus',
+        'items-per-page-text': '一頁幾筆',
       },
+
       headers: [
         {
           text: '項目名稱',
@@ -151,6 +162,11 @@ export default {
         { text: 'Opensea', value: 'url', sortable: false },
         { text: '動作', value: 'action', sortable: false },
       ],
+      form: {
+        collection: '',
+        lower_price: null,
+        higher_price: null,
+      },
 
       rules: {
         name: [(v) => !!v || '項目名稱為必填，請參考上述說明'],

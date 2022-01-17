@@ -2,7 +2,7 @@
   <v-footer dark padless>
     <v-card class="flex" flat tile>
       <v-card-title class="cyan">
-        <strong class="subheading">HoyaWolf 狼群</strong>
+        <span class="subheading">HoyaWolf</span>
 
         <v-spacer></v-spacer>
 
@@ -31,10 +31,6 @@ export default {
         icon: 'mdi-web',
         url: 'https://newecommerce.clickfunnels.com/optin1640080013393',
       },
-      // {
-      //   icon: 'mdi-wan',
-      //   url: 'https://opensea.io/collection/hoyawolf',
-      // },
       {
         icon: 'mdi-youtube',
         url: 'https://www.youtube.com/user/0TonyTien0',
@@ -42,10 +38,6 @@ export default {
       {
         icon: 'mdi-discord',
         url: 'https://discord.com/invite/t4thSgHCu7',
-      },
-      {
-        icon: 'mdi-instagram',
-        url: 'https://www.instagram.com/hoya_wolf_nft/',
       },
     ],
   }),

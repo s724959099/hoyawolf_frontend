@@ -1,12 +1,12 @@
 <template>
   <v-container>
     <v-card elevation="2" class="pa-10">
-      <v-card-title>Opensea 地板價主動通知</v-card-title>
+      <v-card-title>連結 Line Notify</v-card-title>
       <v-divider class="mx-4"></v-divider>
 
       <v-card-text class="d-flex justify-center align-center flex-column">
         <div class="text-center gray--text mt-3 mb-3">
-          追蹤喜愛的 NFT 項目，主動用Line通知
+          追蹤喜愛的 NFT 項目，價格觸發時主動用 Line 通知
         </div>
         <v-btn
           v-if="!notify"

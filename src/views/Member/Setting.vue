@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card elevation="2" class="pa-10">
-      <v-card-title>Opensea 地板價主動通知</v-card-title>
+      <v-card-title>帳號設定 - 連結 Line</v-card-title>
       <v-divider class="mx-4"></v-divider>
 
       <v-card-text class="d-flex justify-center align-center flex-column">
@@ -9,7 +9,7 @@
           <span v-if="info.idTokenDecode && info.idTokenDecode.name">
             {{ info.idTokenDecode.name }}
           </span>
-          ，歡迎使用 Hoya 工具
+          ，歡迎使用 Hoya 追蹤 Opensea 工具
         </div>
         <v-avatar>
           <img
