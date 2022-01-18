@@ -42,21 +42,12 @@ export default {
   },
 
   mounted() {
-    console.log(Object.keys(this.query))
     if (
       Object.keys(this.$route.query).length !== 0 &&
       !this.isLogin &&
       Object.keys(this.info).length === 0
     ) {
       this.getData()
-    }
-
-    if (!this.isLogin) {
-      this.showAlert({
-        show: true,
-        type: 'error',
-        text: '請先登入',
-      })
     }
   },
 
@@ -84,9 +75,9 @@ export default {
           client_secret: process.env.VUE_APP_LINE_CHANNEL_SECRET,
         })
 
+        this.$error(params)
         const result = await getLineAccessTokenAPI(params)
 
-        this.$log(result)
         if (result) {
           const data = {
             ...result.data,
