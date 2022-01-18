@@ -1,89 +1,95 @@
 <template>
   <v-app id="inspire">
-    <Alert :show="alert.show" :text="alert.text" :type="alert.type" />
-
-    <v-app-bar app color="white" dark>
-      <v-container class="py-0 fill-height">
-        <v-avatar class="mr-10" color="grey darken-1" size="48">
-          <router-link :to="{ path: '/' }">
-            <img :src="logo" />
-          </router-link>
-        </v-avatar>
-
-        <v-spacer></v-spacer>
-
-        <!-- <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="signOut"
-          >清空資料
-        </v-btn>
-        <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="getVuex"
-          >取得vuex
-        </v-btn> -->
-
-        <v-btn v-if="!isLogin" elevation="2" @click="loginEvent()"
-          >Line登入
-        </v-btn>
-
-        <div v-if="isLogin" @click.stop="drawer = !drawer">
-          <v-icon large color="cyan lighten-2">
-            mdi-message-alert-outline
-          </v-icon>
-        </div>
-      </v-container>
-    </v-app-bar>
-
-    <v-navigation-drawer v-model="drawer" absolute right temporary>
-      <v-list nav dense>
-        <v-subheader>選單</v-subheader>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <router-link :to="{ path: '/' }">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-home-alert-outline</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="'NFT追蹤'"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </router-link>
-
-          <router-link :to="{ name: 'MemberSetting' }">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-message-alert-outline</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="'帳號設定'"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </router-link>
-
-          <router-link :to="{ name: 'MemberNotify' }">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-message-cog-outline</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="'設定推播'"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </router-link>
-
-          <v-list-item @click="signOut">
-            <v-list-item-icon>
-              <v-icon>mdi-logout-variant</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="'登出'"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-
     <v-main class="lighten-3">
+      <Alert :show="alert.show" :text="alert.text" :type="alert.type" />
+
+      <v-app-bar app color="white" dark>
+        <v-container class="py-0 fill-height">
+          <v-avatar class="mr-10" color="grey darken-1" size="48">
+            <router-link :to="{ path: '/' }">
+              <img :src="logo" />
+            </router-link>
+          </v-avatar>
+
+          <v-spacer></v-spacer>
+
+          <!-- <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="signOut"
+            >清空資料
+          </v-btn>
+          <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="getVuex"
+            >取得vuex
+          </v-btn> -->
+
+          <v-btn v-if="!isLogin" elevation="2" @click="loginEvent()"
+            >Line登入
+          </v-btn>
+
+          <div v-if="isLogin" @click.stop="drawer = !drawer">
+            <v-icon large color="cyan lighten-2">
+              mdi-message-alert-outline
+            </v-icon>
+          </div>
+        </v-container>
+      </v-app-bar>
+
+      <v-navigation-drawer
+        v-model="drawer"
+        right
+        temporary
+        hide-overlay
+        fixed
+        app
+      >
+        <v-list nav dense>
+          <v-subheader>選單</v-subheader>
+          <v-list-item-group
+            v-model="group"
+            active-class="deep-purple--text text--accent-4"
+          >
+            <router-link :to="{ path: '/' }">
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-home-alert-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="'NFT追蹤'"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
+            <router-link :to="{ name: 'MemberSetting' }">
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-message-alert-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="'帳號設定'"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
+            <router-link :to="{ name: 'MemberNotify' }">
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-message-cog-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="'設定推播'"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
+            <v-list-item @click="signOut">
+              <v-list-item-icon>
+                <v-icon>mdi-logout-variant</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="'登出'"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
       <router-view></router-view>
     </v-main>
 
