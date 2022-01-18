@@ -12,12 +12,12 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="signOut"
+        <!-- <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="signOut"
           >清空資料
         </v-btn>
         <v-btn v-if="$isDev" elevation="2" class="mr-3" @click="getVuex"
           >取得vuex
-        </v-btn>
+        </v-btn> -->
 
         <v-btn v-if="!isLogin" elevation="2" @click="loginEvent()"
           >Line登入
