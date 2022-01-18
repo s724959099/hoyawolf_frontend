@@ -179,7 +179,7 @@ export default {
   },
 
   mounted() {
-    this.$error('here')
+    this.$error('here', process.env.NODE_ENV)
     if (this.info.idTokenDecode.sub) {
       this.getUserOrderItem()
     } else {

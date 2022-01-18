@@ -23,6 +23,10 @@ Object.keys(Console).forEach((consoleEvents) => {
 
 Vue.prototype.$isDev = () => process.env.NODE_ENV === 'development'
 
+// ------- LogRocker
+import LogRocket from 'logrocket'
+if (process.env.NODE_ENV === 'production') LogRocket.init('goldenf/hoyawolf')
+
 Vue.config.productionTip = false
 
 const vue = new Vue({

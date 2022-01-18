@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // Plugin
+import LogRocket from 'logrocket'
 import createPersistedState from 'vuex-persistedstate'
+import createPlugin from 'logrocket-vuex'
+const logrocketPlugin = createPlugin(LogRocket)
 // 加密
 import SecureLS from 'secure-ls'
 const ls = new SecureLS({ isCompression: false })
@@ -9,6 +12,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   plugins: [
+    logrocketPlugin,
     createPersistedState({
       key: 'wolf',
       storage: {
@@ -37,6 +41,10 @@ const store = new Vuex.Store({
       state.isLogin = boolean
     },
     SET_USER_INFO(state, data = {}) {
+      LogRocket.identify(this.info.idTokenDecode.sub, {
+        name: this.info.idTokenDecode.name,
+        email: this.info.idTokenDecode.picture,
+      })
       state.info = data
     },
     SET_NOTIFY(state, data = '') {
