@@ -102,6 +102,7 @@
             :items-per-page="10"
             class="elevation-2 mb-10"
             :footer-props="footerProps"
+            id="owner-data-table"
           >
             <template v-slot:item.url="{ item }">
               <a :href="item.url" target="_blank" rel="noopener noreferrer"
