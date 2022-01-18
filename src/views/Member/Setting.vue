@@ -3,6 +3,16 @@
     <v-card elevation="2" class="pa-10">
       <v-card-title>帳號設定 - 連結 Line</v-card-title>
       <v-divider class="mx-4"></v-divider>
+      <v-card-text>
+        <div class="grey--text mb-2">
+          <span class="text--primary"> User ID </span>
+          <span class="text-darken-1">{{ info.idTokenDecode.sub }}</span>
+        </div>
+        <div class="grey--text mb-2">
+          <span class="text--primary"> Access Token </span>
+          <span class="text-darken-1">{{ notify || '尚未連接' }}</span>
+        </div>
+      </v-card-text>
 
       <v-card-text class="d-flex justify-center align-center flex-column">
         <div class="text-center gray--text mt-3 mb-3">
@@ -59,7 +69,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['isLogin', 'info']),
+    ...mapState(['isLogin', 'info', 'notify']),
   },
 
   methods: {
