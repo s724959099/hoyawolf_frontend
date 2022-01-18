@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  ![封面圖](src/assets/images/readme/cover-1.png){:width="300px"}
+  ![封面圖](src/assets/images/readme/cover-1.png)
 </p>
 
 <p align="center">
@@ -17,12 +17,13 @@
 與 Meatball、Sula 遠端合作，串接 Line 登入及後端 API，SPA 製作 Opensea 地板價推播，負責處理版面設計、前端處理、串接後端 API、串接 Line 登入、Docker 打包前端環境，並採用 vue/essential、eslint:recommended 規範符合 Coding Style。
 
 - ### 開發技術：
-|套件|前端|後端|版控|
-|-|-|-|-|-|
-|Vuetify|Vue CLI|Python|Git||
-|vuex-persistedstate|Vue Router|
-|AXIOS|Vuex|
-
+  - Vue 2
+  - Axios
+  - secure-ls
+  - vuex-persistedstate
+  - Vue Router
+  - Eslint
+  
 - ### 主要功能
 
   - #### 串接 Line 登入
@@ -61,9 +62,9 @@
     ```
 
   - #### 開發
-  ```
-  npm install
-  npm run serve
-  ```
+    ```
+    npm install
+    npm run serve
+    ```
   - #### Pre-commit
     - 專案裝 eslint, commit，commit前會預先 format，並檢查 coding style，未通過請修正
