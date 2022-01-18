@@ -9,7 +9,13 @@
           <span v-if="info.idTokenDecode && info.idTokenDecode.name">
             {{ info.idTokenDecode.name }}，
           </span>
-          歡迎使用 Hoya 追蹤 Opensea 工具
+          歡迎使用 Hoya 追蹤 Opensea 工具<br />
+          登入後請先到設定推播，允許 Line 機器人發送推播給你
+        </div>
+        <div class="mt-3 mb-3">
+          <v-btn color="cyan lighten-2 white--text" elevation="2">
+            <router-link :to="{ name: 'MemberNotify' }"> 設定推播 </router-link>
+          </v-btn>
         </div>
         <v-avatar>
           <img
