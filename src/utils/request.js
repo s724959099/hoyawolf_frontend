@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Vue from '../main'
+import store from '../store'
 
 // --------- API實體 ---------
 const service = axios.create({
@@ -38,10 +39,16 @@ service.interceptors.response.use(
       'padding: 3px;',
       response.data
     )
+
     return response
   },
   (error) => {
-    Vue.$error('DEBUG: ⛔ 請求發生錯誤：', error)
+    if (error.response && error.response.data) {
+      const { msg } = error.response.data
+      store.dispatch('showError', msg)
+      Vue.$error('DEBUG: ⛔ 請求發生錯誤：', error.response)
+    }
+
     return Promise.reject(error)
   }
 )

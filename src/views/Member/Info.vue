@@ -251,11 +251,12 @@ export default {
           // 重新取得資料
           this.getUserOrderItem()
           this.resetForm()
+        } else {
+          this.showError(data.msg)
         }
 
         if (data.detail && data.detail.errors) {
           let string = ''
-          debugger
           data.detail.errors.forEach((error) => {
             string += `${error.loc[1]} ${error.msg} <br>`
           })
@@ -263,8 +264,7 @@ export default {
           this.showError(string)
         }
       } catch (error) {
-        this.$error(error)
-        this.showError(error)
+        this.$error(error.response)
       }
     },
 
