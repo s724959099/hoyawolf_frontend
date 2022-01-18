@@ -17,7 +17,7 @@
 
       <v-card-text class="py-2 white--text text-center">
         {{ new Date().getFullYear() }} —
-        <strong>工程狼 Meatball、積少化談、Hazel 共同製作</strong>
+        <strong>工程狼 Meatball、Sula、Hazel 共同製作</strong>
       </v-card-text>
     </v-card>
   </v-footer>
