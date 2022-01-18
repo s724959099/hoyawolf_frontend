@@ -25,9 +25,7 @@
           </v-btn>
 
           <div v-if="isLogin" @click.stop="drawer = !drawer">
-            <v-icon large color="cyan lighten-2">
-              mdi-message-alert-outline
-            </v-icon>
+            <v-icon large color="cyan lighten-2"> mdi-menu </v-icon>
           </div>
         </v-container>
       </v-app-bar>
