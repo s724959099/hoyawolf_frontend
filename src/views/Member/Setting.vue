@@ -27,6 +27,7 @@
 // Utils
 import Qs from 'qs'
 import jwtDecode from 'jwt-decode'
+import LogRocket from 'logrocket'
 import { mapState, mapMutations, mapActions } from 'vuex'
 // API
 import { getLineAccessTokenAPI } from '@/api/line'
@@ -60,7 +61,7 @@ export default {
       changeLoginStatus: 'CHANGE_LOGIN',
       setUserInfo: 'SET_USER_INFO',
     }),
-    ...mapActions(['showAlert']),
+    ...mapActions(['showAlert', 'showError']),
 
     // 請求使用者資料，接網址的參數
     async getData() {
@@ -77,7 +78,6 @@ export default {
 
         this.$error(params)
         const result = await getLineAccessTokenAPI(params)
-
         if (result) {
           const data = {
             ...result.data,
@@ -87,11 +87,16 @@ export default {
 
           this.setUserInfo(data)
           this.changeLoginStatus(true)
+
+          LogRocket.identify(data.idTokenDecode.sub, {
+            name: data.idTokenDecode.name,
+            email: data.idTokenDecode.picture,
+          })
         }
       } catch (error) {
         this.changeLoginStatus(false)
         this.$error(error)
-        alert(error)
+        this.showError(error)
       }
     },
   },

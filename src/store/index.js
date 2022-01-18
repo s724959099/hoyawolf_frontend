@@ -41,10 +41,6 @@ const store = new Vuex.Store({
       state.isLogin = boolean
     },
     SET_USER_INFO(state, data = {}) {
-      LogRocket.identify(this.info.idTokenDecode.sub, {
-        name: this.info.idTokenDecode.name,
-        email: this.info.idTokenDecode.picture,
-      })
       state.info = data
     },
     SET_NOTIFY(state, data = '') {
