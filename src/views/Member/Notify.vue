@@ -43,7 +43,7 @@ export default {
   mounted() {
     if (this.$route.query.access_token) {
       this.setNotify(this.$route.query.access_token)
-      this.$router.push(this.$route.path)
+      // this.$router.push(this.$route.path)
     }
   },
 
