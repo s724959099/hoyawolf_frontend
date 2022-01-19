@@ -31,6 +31,17 @@ const routes = [
     },
   },
   {
+    path: '/member/track-wallet',
+    name: 'MemberTrackWallet',
+    component: () =>
+      import(
+        /* webpackChunkName: "member" */ '../views/Member/TrackWallet.vue'
+      ),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/member/info',
     name: 'MemberInfo',
     component: () =>

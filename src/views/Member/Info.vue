@@ -216,6 +216,7 @@ export default {
       }
     },
 
+    // 訂閱 Opensea 項目推播
     async registerOpenseaNotify() {
       const isValid = await this.$refs.form.validate()
       if (!isValid) return
