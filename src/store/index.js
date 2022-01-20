@@ -99,6 +99,10 @@ const store = new Vuex.Store({
         access_token: state.notify,
       }
     },
+
+    SET_RECOMMEND_LIST(state, data) {
+      state.recommendAddressList = data
+    },
   },
   actions: {
     closeAlert({ commit }) {
@@ -146,10 +150,10 @@ const store = new Vuex.Store({
     },
 
     // 取得推薦錢包
-    async getRecommendWallet(state) {
+    async getRecommendWallet({ commit }) {
       try {
         const { data } = await getAddresssRecommendAPI()
-        state.recommendAddressList = data
+        commit('SET_RECOMMEND_LIST', data)
       } catch (error) {
         this._vm.$error(error)
       }

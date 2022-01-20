@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <h1>大戶地址追蹤神器</h1>
     <v-card elevation="2" class="pa-10">
       <v-card-title>開始追蹤喜愛的 聰明錢包</v-card-title>
       <v-divider class="mx-4"></v-divider>
@@ -45,13 +46,13 @@
       </v-form>
     </v-card>
 
-    <RecommendWalletList :address-list="addressList" />
+    <RecommendWalletList :headers="headers" :address-list="addressList" />
 
     <!-- 項目 -->
     <v-row class="mt-5">
       <v-col cols="12">
         <v-card elevation="2" class="pa-10">
-          <v-card-title>已追蹤的 NFT 聰明錢包</v-card-title>
+          <v-card-title>已追蹤地址</v-card-title>
           <v-divider class="mx-4"></v-divider>
           <v-data-table
             :headers="headers"
@@ -109,13 +110,12 @@ export default {
       },
       headers: [
         {
-          text: '項目名稱',
+          text: '聰明錢包',
           align: 'start',
           value: 'name',
         },
-        { text: '最低價', value: 'lower_price' },
-        { text: '最高價', value: 'higher_price' },
-        { text: 'Opensea', value: 'url', sortable: false },
+        { text: '推薦原因', value: 'memo' },
+        // { text: 'Opensea', value: 'url', sortable: false },
         { text: '動作', value: 'action', sortable: false },
       ],
       rules: {
@@ -153,21 +153,22 @@ export default {
       'getRecommendWallet',
     ]),
 
-    // 訂閱 Opensea 錢包推播
+    // 註冊追蹤錢包
     async registerAddressNotify() {
       const isValid = await this.$refs.form.validate()
       if (!isValid) return
 
       this.setParams()
 
+      const { address, name, memo } = this.form
+
       const params = {
         ...this.apiParams,
-        address: this.form.address,
-        name: 'Tony 錢包',
-        memo: '一起Hoya',
+        address,
+        name,
+        memo,
       }
 
-      this.$error(JSON.stringify(params))
       try {
         const { data } = await registerAddressNotifyAPI(params)
         if (data.msg === 'register success') {
