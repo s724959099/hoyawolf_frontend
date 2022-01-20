@@ -6,42 +6,18 @@
       <v-card-text class="d-flex justify-center align-center flex-column">
         <h2 class="black--text mb-2">使用說明</h2>
         <v-divider class="mx-4"></v-divider>
+
         <div>
-          <span class="subtitle-2 black--text">
-            NFT名稱：請填寫opensea網址最後一截單字
-          </span>
-          <ul>
-            <li>
-              例如網址是 https://opensea.io/collection/
-              <strong class="red--text">hoyawolf</strong>
-              ，NFT名稱填「hoyawolf」
-            </li>
-          </ul>
-          <span class="subtitle-2 black--text">
-            最低價格：當項目低於某價格，將推播通知
-          </span>
-          <ul>
-            <li>
-              若想要追蹤
-              <span class="red--text">hoyawolf</span>
-              opensea價格<strong class="red--text">低於 1.6</strong>
-              ，則設定最低價格 1.6，當價格低於 1.6 將通知
-            </li>
-          </ul>
-          <span class="subtitle-2 black--text">
-            最高價格：當項目高於某價格，將推播通知
-          </span>
-          <ul>
-            <li>
-              若想要追蹤
-              <span class="red--text">hoyawolf</span>
-              opensea價格<strong class="red--text">高於 2.5</strong>
-              ，則設定最高價格 2.5，當價格超過 2.5 將通知
-            </li>
-            <li>
-              最低、最高價為選填，若皆不設定，每五分鐘監聽，Opensea有變動會Line推播
-            </li>
-          </ul>
+          <div v-for="caption in captions" :key="caption.title">
+            <span class="subtitle-2 black--text">{{ caption.title }}</span>
+            <ul>
+              <li
+                v-for="(item, index) in caption.description"
+                :key="index"
+                v-html="item.text"
+              />
+            </ul>
+          </div>
         </div>
       </v-card-text>
 
@@ -158,6 +134,47 @@ export default {
       rules: {
         name: [(v) => !!v || '項目名稱為必填，請參考上述說明'],
       },
+
+      captions: [
+        {
+          title: 'NFT名稱：請填寫opensea網址最後一截單字',
+          description: [
+            {
+              text: '例如網址是 https://opensea.io/collection/<strong class="red--text">hoyawolf</strong>，NFT名稱填「hoyawolf」',
+            },
+          ],
+        },
+        {
+          title: '最低價格：當項目低於某價格，將推播通知',
+          description: [
+            {
+              text: '若想要追蹤<span class="red--text">hoyawolf</span>opensea價格<strong class="red--text">低於 1.6</strong>，則設定最低價格 1.6，當價格低於 1.6 將通知',
+            },
+          ],
+        },
+        {
+          title: '最高價格：當項目高於某價格，將推播通知',
+          description: [
+            {
+              text: '若想要追蹤<span class="red--text">hoyawolf</span>opensea價格<strong class="red--text">高於 2.5</strong>，則設定最高價格 2.5，當價格超過 2.5 將通知',
+            },
+            {
+              text: '最低、最高價為選填，若皆不設定，每五分鐘監聽，Opensea有變動會Line推播',
+            },
+          ],
+        },
+        {
+          title: '注意事項',
+          description: [
+            {
+              text: '系統為【每5分鐘】監控一次價格',
+            },
+            {
+              text: '每次登出帳號後，皆需重新到推播設定頁面進行重新授權',
+            },
+          ],
+        },
+      ],
     }
   },
 
@@ -174,8 +191,6 @@ export default {
 
   mounted() {
     this.checkNotifyToken()
-
-    this.showError('123')
   },
 
   methods: {
