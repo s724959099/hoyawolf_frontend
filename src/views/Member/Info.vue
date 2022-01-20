@@ -130,27 +130,13 @@
 // Utils
 import { mapState, mapMutations, mapActions } from 'vuex'
 // API
-import {
-  deleteUserAPI,
-  getUserInfoAPI,
-  registerOpenseaNotifyAPI,
-} from '@/api/user'
+import { deleteUserAPI, registerOpenseaNotifyAPI } from '@/api/user'
 
 export default {
   name: 'MemberInfo',
   data() {
     return {
-      opensea: [],
       valid: false,
-
-      footerProps: {
-        showFirstLastPage: true,
-        firstIcon: 'mdi-arrow-collapse-left',
-        lastIcon: 'mdi-arrow-collapse-right',
-        prevIcon: 'mdi-minus',
-        nextIcon: 'mdi-plus',
-        'items-per-page-text': '一頁幾筆',
-      },
 
       headers: [
         {
@@ -176,45 +162,28 @@ export default {
   },
 
   computed: {
-    ...mapState(['isLogin', 'info', 'notify']),
+    ...mapState([
+      'footerProps',
+      'isLogin',
+      'info',
+      'notify',
+      'opensea',
+      'apiParams',
+    ]),
   },
 
   mounted() {
-    if (this.info.idTokenDecode.sub) {
-      this.getUserOrderItem()
-    } else {
-      const alert = {
-        show: true,
-        text: '請先至「推播設定」，同意Line推播後，才可使用功能',
-        type: 'warning',
-      }
-      this.showAlert(alert)
-    }
+    this.checkNotifyToken()
   },
 
   methods: {
     ...mapMutations({
       setNotify: 'SET_NOTIFY',
+      checkNotifyToken: 'CHECK_NOTIFY_TOKEN',
+      setParams: 'SET_PARAMS',
     }),
 
-    ...mapActions(['showAlert', 'showError']),
-
-    // 取得使用者所有訂閱項目
-    async getUserOrderItem() {
-      try {
-        const { data } = await getUserInfoAPI(this.info.idTokenDecode.sub)
-        this.opensea = data.opensea || []
-
-        if (this.opensea.length > 0) {
-          this.opensea.forEach((item) => {
-            item.action = true
-            item.url = `https://opensea.io/collection/${item.name}`
-          })
-        }
-      } catch (error) {
-        this.$error(error)
-      }
-    },
+    ...mapActions(['showAlert', 'showError', 'getUserOrderItem']),
 
     // 訂閱 Opensea 項目推播
     async registerOpenseaNotify() {
@@ -225,10 +194,11 @@ export default {
         return
       }
 
+      this.setParams()
+
       let params = {
+        ...this.apiParams,
         collection: this.form.collection,
-        user_id: this.info.idTokenDecode.sub,
-        access_token: this.notify,
         lower_price: parseFloat(this.form.lower_price),
         higher_price: parseFloat(this.form.higher_price),
       }

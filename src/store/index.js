@@ -10,6 +10,9 @@ import SecureLS from 'secure-ls'
 const ls = new SecureLS({ isCompression: false })
 Vue.use(Vuex)
 
+// API
+import { getUserInfoAPI, getAddresssRecommendAPI } from '@/api/user'
+
 const store = new Vuex.Store({
   plugins: [
     logrocketPlugin,
@@ -24,15 +27,30 @@ const store = new Vuex.Store({
   ],
 
   state: {
+    opensea: [], // 使用者訂閱opensea項目
+    addressTrack: [], // 使用者訂閱聰明錢包
+    recommendAddressList: [], // 推薦追蹤錢包
     isLogin: false,
     info: {},
     notify: '', // 存放 Notify Access Token
+
+    apiParams: {}, // 給 API 參數
 
     // 通知訊息
     alert: {
       show: false,
       text: '',
       type: '',
+    },
+
+    // Table Footer 設定
+    footerProps: {
+      showFirstLastPage: true,
+      firstIcon: 'mdi-arrow-collapse-left',
+      lastIcon: 'mdi-arrow-collapse-right',
+      prevIcon: 'mdi-minus',
+      nextIcon: 'mdi-plus',
+      'items-per-page-text': '一頁幾筆',
     },
   },
 
@@ -57,12 +75,36 @@ const store = new Vuex.Store({
       state.alert.type = type
       state.alert.show = show
     },
+
+    SET_ORDER_ITEM(state, { opensea, address_track }) {
+      state.opensea = opensea
+      state.addressTrack = address_track
+    },
+
+    CHECK_NOTIFY_TOKEN(state) {
+      if (state.info.idTokenDecode.sub) {
+        this.dispatch('getUserOrderItem')
+      } else {
+        this.dispatch('showAlert', {
+          show: true,
+          text: '請先至「推播設定」，同意Line推播後，才可使用功能',
+          type: 'warning',
+        })
+      }
+    },
+
+    SET_PARAMS(state) {
+      state.apiParams = {
+        user_id: state.info.idTokenDecode.sub,
+        access_token: state.notify,
+      }
+    },
   },
   actions: {
     closeAlert({ commit }) {
       const alertData = {
         text: '',
-        type: '',
+        type: 'info',
         show: false,
       }
       commit('SET_ALERT', alertData)
@@ -85,6 +127,32 @@ const store = new Vuex.Store({
       setTimeout(() => {
         dispatch('closeAlert')
       }, 3000)
+    },
+
+    async getUserOrderItem({ commit, state }) {
+      try {
+        const { data } = await getUserInfoAPI(state.info.idTokenDecode.sub)
+        if (data.opensea.length > 0) {
+          data.opensea.forEach((item) => {
+            item.action = true
+            item.url = `https://opensea.io/collection/${item.name}`
+          })
+        }
+
+        commit('SET_ORDER_ITEM', data)
+      } catch (error) {
+        this._vm.$error(error)
+      }
+    },
+
+    // 取得推薦錢包
+    async getRecommendWallet(state) {
+      try {
+        const { data } = await getAddresssRecommendAPI()
+        state.recommendAddressList = data
+      } catch (error) {
+        this._vm.$error(error)
+      }
     },
   },
 })

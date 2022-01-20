@@ -10,11 +10,23 @@
           <v-row>
             <v-col cols="12" md="4">
               <v-text-field
-                v-model="form.collection"
+                v-model="form.name"
                 :rules="rules.name"
-                label="NFT名稱"
+                label="錢包名稱"
                 required
-              ></v-text-field>
+              />
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-text-field
+                v-model="form.address"
+                :rules="rules.address"
+                label="錢包地址"
+                required
+              />
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-text-field v-model="form.memo" label="錢包描述" required />
             </v-col>
 
             <v-col cols="12" class="justify-center d-flex">
@@ -23,7 +35,7 @@
                 color="cyan lighten-2 white--text"
                 absoluteclass="mr-4"
                 x-large
-                @click="registerOpenseaNotify"
+                @click="registerAddressNotify"
               >
                 訂閱
               </v-btn>
@@ -33,6 +45,8 @@
       </v-form>
     </v-card>
 
+    <RecommendWalletList :address-list="addressList" />
+
     <!-- 項目 -->
     <v-row class="mt-5">
       <v-col cols="12">
@@ -41,7 +55,7 @@
           <v-divider class="mx-4"></v-divider>
           <v-data-table
             :headers="headers"
-            :items="opensea"
+            :items="addressTrack"
             :items-per-page="10"
             class="elevation-2 mb-10"
             :footer-props="footerProps"
@@ -57,7 +71,7 @@
               <v-btn
                 color="red lighten-2 white--text"
                 elevation="2"
-                @click="deleteOpenseaNotify(item.name, item._id)"
+                @click="deleteAddressNotify(item.name, item._id)"
               >
                 取消訂閱
               </v-btn>
@@ -77,8 +91,10 @@ import {
   getAddresssRecommendAPI,
   addAddresssRecommendAPI,
   deleteAddresssRecommendAPI,
+  deleteAddressNotifyAPI,
   registerAddressNotifyAPI,
 } from '@/api/user'
+import RecommendWalletList from './components/RecommendWalletList.vue'
 
 export default {
   name: 'MemberTrackWallet',
@@ -87,9 +103,10 @@ export default {
       addressList: [],
       valid: false,
       form: {
-        collection: '',
+        address: '',
+        name: '',
+        memo: '',
       },
-
       headers: [
         {
           text: '項目名稱',
@@ -101,66 +118,64 @@ export default {
         { text: 'Opensea', value: 'url', sortable: false },
         { text: '動作', value: 'action', sortable: false },
       ],
-
       rules: {
-        name: [(v) => !!v || '項目名稱為必填，請參考上述說明'],
+        name: [(v) => !!v || '錢包名稱為必填，輸入你好辨識的名稱，可任意取名'],
+        address: [(v) => !!v || '錢包地址為必填'],
       },
     }
   },
-
   computed: {
-    ...mapState(['isLogin', 'info', 'notify']),
+    ...mapState([
+      'footerProps',
+      'isLogin',
+      'info',
+      'notify',
+      'addressTrack',
+      'apiParams',
+    ]),
   },
 
-  mounted() {
-    if (this.info.idTokenDecode.sub) {
-      this.getRecommendWallet()
-    } else {
-      const alert = {
-        show: true,
-        text: '請先至「推播設定」，同意Line推播後，才可使用功能',
-        type: 'warning',
-      }
-      this.showAlert(alert)
-    }
+  async mounted() {
+    await this.checkNotifyTokenThenGetData()
+    this.getRecommendWallet()
   },
 
   methods: {
-    ...mapActions(['showAlert', 'showError']),
+    ...mapMutations({
+      checkNotifyTokenThenGetData: 'CHECK_NOTIFY_TOKEN',
+      setParams: 'SET_PARAMS',
+    }),
 
-    // 取得推薦錢包
-    async getRecommendWallet() {
-      try {
-        const { data } = await getAddresssRecommendAPI()
-        this.addressList = data
-      } catch (error) {
-        this.$error(error)
-      }
-    },
+    ...mapActions([
+      'showAlert',
+      'showError',
+      'getUserOrderItem',
+      'getRecommendWallet',
+    ]),
 
     // 訂閱 Opensea 錢包推播
     async registerAddressNotify() {
       const isValid = await this.$refs.form.validate()
       if (!isValid) return
 
+      this.setParams()
+
       const params = {
-        address: '0x7c607f8aa9e2b8aa7802650060165b7b36ca081f',
-        user_id: 'DEMO',
-        access_token: 'yLhQXmexl19M0ogNzVdFxPGAk9et0Lmj4dxXDMlLaIe',
+        ...this.apiParams,
+        address: this.form.address,
         name: 'Tony 錢包',
         memo: '一起Hoya',
       }
 
+      this.$error(JSON.stringify(params))
       try {
         const { data } = await registerAddressNotifyAPI(params)
-
         if (data.msg === 'register success') {
           this.showAlert({
             show: true,
             text: `訂閱 ${this.form.collection} 錢包成功`,
             type: 'success',
           })
-
           // 重新取得資料
           this.getUserOrderItem()
           this.resetForm()
@@ -175,8 +190,7 @@ export default {
     // 取消追蹤聰明錢包
     async deleteAddressNotify(name, id) {
       try {
-        const { data } = await deleteAddresssRecommendAPI(id)
-
+        const { data } = await deleteAddressNotifyAPI(id)
         if (data.msg === 'sucess') {
           this.showAlert({
             show: true,
@@ -197,6 +211,7 @@ export default {
       this.$refs.form.reset()
     },
   },
+  components: { RecommendWalletList },
 }
 </script>
 
