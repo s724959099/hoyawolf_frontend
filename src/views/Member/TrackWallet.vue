@@ -1,9 +1,24 @@
 <template>
   <v-container>
-    <h1>大戶地址追蹤神器</h1>
     <v-card elevation="2" class="pa-10">
-      <v-card-title>開始追蹤喜愛的 聰明錢包</v-card-title>
+      <v-card-title>大戶地址追蹤神器</v-card-title>
       <v-divider class="mx-4"></v-divider>
+      <v-card-text class="d-flex justify-center align-center flex-column">
+        <h2 class="black--text mb-2">使用說明</h2>
+        <v-divider class="mx-4"></v-divider>
+        <div>
+          <div v-for="caption in captions" :key="caption.title">
+            <span class="subtitle-2 black--text">{{ caption.title }}</span>
+            <ul>
+              <li
+                v-for="(item, index) in caption.description"
+                :key="index"
+                v-html="item.text"
+              />
+            </ul>
+          </div>
+        </div>
+      </v-card-text>
 
       <!-- Form -->
       <v-form v-model="valid" ref="form">
@@ -27,7 +42,12 @@
               />
             </v-col>
             <v-col cols="12" md="4">
-              <v-text-field v-model="form.memo" label="錢包描述" required />
+              <v-text-field
+                v-model="form.memo"
+                placeholder="是一個 memo，可任意輸入文字，可輸入推薦追蹤原因"
+                label="錢包描述"
+                required
+              />
             </v-col>
 
             <v-col cols="12" class="justify-center d-flex">
@@ -119,9 +139,49 @@ export default {
         { text: '動作', value: 'action', sortable: false },
       ],
       rules: {
-        name: [(v) => !!v || '錢包名稱為必填，輸入你好辨識的名稱，可任意取名'],
-        address: [(v) => !!v || '錢包地址為必填'],
+        name: [(v) => !!v || '必填，輸入你好辨識的名稱，可任意取名'],
+        address: [
+          (v) => !!v || '必填，是一個 memo，可任意輸入文字，可輸入推薦追蹤原因',
+        ],
       },
+
+      captions: [
+        {
+          title: '錢包名稱：',
+          description: [
+            {
+              text: '因錢包地址太長串不好辨識，你可以任意取名你喜歡的名稱以辨識使用',
+            },
+          ],
+        },
+        {
+          title: '錢包地址：',
+          description: [
+            {
+              text: '例如「0x9f0e3df46531947056b771d231771c7198005a19」',
+            },
+          ],
+        },
+        {
+          title: '錢包描述：',
+          description: [
+            {
+              text: '是一個 memo，可任意輸入文字，可輸入推薦追蹤原因',
+            },
+          ],
+        },
+        {
+          title: '觸發條件：',
+          description: [
+            {
+              text: '程式將每<span class="red--text">五分鐘</span>排程監測，當大戶在Opensea上任何動作時，Line 會推播通知',
+            },
+            {
+              text: '動作包含：買入、賣出、掛價、取消掛價、出價、取消出價、轉移',
+            },
+          ],
+        },
+      ],
     }
   },
   computed: {
@@ -156,7 +216,14 @@ export default {
     // 註冊追蹤錢包
     async registerAddressNotify() {
       const isValid = await this.$refs.form.validate()
-      if (!isValid) return
+      if (!isValid) {
+        this.showError('表單還有些項目還沒有填寫喔')
+        return
+      }
+      if (!this.notify) {
+        this.showError('請先至「推播設定」，同意Line推播後，才可使用功能')
+        return
+      }
 
       this.setParams()
 
