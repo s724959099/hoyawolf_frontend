@@ -188,7 +188,10 @@ export default {
     // 訂閱 Opensea 項目推播
     async registerOpenseaNotify() {
       const isValid = await this.$refs.form.validate()
-      if (!isValid) return
+      if (!isValid) {
+        this.showError('表單還有些項目還沒有填寫喔')
+        return
+      }
       if (!this.notify) {
         this.showError('請先至「推播設定」，同意Line推播後，才可使用功能')
         return
