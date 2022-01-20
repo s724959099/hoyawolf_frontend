@@ -88,6 +88,17 @@
               </v-list-item>
             </router-link>
 
+            <a :href="notion" target="_blank">
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-message-cog-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="'使用說明'"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </a>
+
             <v-list-item @click="signOut">
               <v-list-item-icon>
                 <v-icon>mdi-logout-variant</v-icon>
@@ -122,6 +133,8 @@ export default {
     drawer: null,
     logo: require('./assets/images/hoyawolf-logo.png'),
     group: null,
+    notion:
+      'https://www.notion.so/hazelwu/Opensea-029f2842fc7642ea8b6382906d1bf0bd',
   }),
 
   watch: {
