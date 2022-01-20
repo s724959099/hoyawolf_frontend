@@ -29,6 +29,11 @@ if (process.env.NODE_ENV === 'production') LogRocket.init('goldenf/hoyawolf')
 
 Vue.config.productionTip = false
 
+import { VueSvgIcon } from '@yzfe/vue-svgicon'
+import '@yzfe/svgicon/lib/svgicon.css'
+
+Vue.component('y', VueSvgIcon)
+
 const vue = new Vue({
   router,
   vuetify,
