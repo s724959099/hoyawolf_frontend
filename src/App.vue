@@ -35,6 +35,8 @@
         </v-container>
       </v-app-bar>
 
+      <Tutorial />
+
       <v-navigation-drawer
         v-model="drawer"
         right
@@ -128,10 +130,11 @@ import { mapState, mapMutations } from 'vuex'
 // Component
 import Alert from '@/components/Alert.vue'
 import Footer from '@/views/Footer.vue'
+import Tutorial from '@/components/Tutorial.vue'
 
 export default {
   name: 'App',
-  components: { Footer, Alert },
+  components: { Footer, Alert, Tutorial },
 
   data: () => ({
     stateCode: 'bff10f539a160bc044304007f2a5d8d0',
@@ -193,5 +196,18 @@ export default {
 <style lang="scss" scoped>
 a {
   text-decoration: none;
+}
+
+.tutorial-btn {
+  height: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top: 56px;
+  z-index: 99;
 }
 </style>

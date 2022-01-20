@@ -1,21 +1,17 @@
 <template>
   <v-footer dark padless>
-    <v-card class="flex" flat tile>
-      <v-card-title class="cyan">
-        <span class="subheading">HoyaWolf</span>
-
-        <v-spacer></v-spacer>
-
-        <v-btn v-for="item in items" :key="item.url" class="mx-4" dark icon>
-          <a :href="item.url" target="_blank">
-            <v-icon size="24px">
-              {{ item.icon }}
-            </v-icon>
-          </a>
-        </v-btn>
-      </v-card-title>
-
+    <v-card class="flex gray" flat tile>
       <v-card-text class="py-2 white--text text-center">
+        <v-spacer></v-spacer>
+        <div>
+          <v-btn v-for="item in items" :key="item.url" class="mx-4" dark icon>
+            <a :href="item.url" target="_blank">
+              <v-icon size="24px">
+                {{ item.icon }}
+              </v-icon>
+            </a>
+          </v-btn>
+        </div>
         {{ new Date().getFullYear() }} —
         <strong>工程狼 Meatball、Sula、Hazel 共同製作</strong>
       </v-card-text>
