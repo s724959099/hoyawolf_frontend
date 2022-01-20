@@ -1,7 +1,12 @@
 <template>
   <v-app id="inspire">
     <v-main class="lighten-3">
-      <Alert :show="alert.show" :text="alert.text" :type="alert.type" />
+      <Alert
+        :icon="alert.type"
+        :show="alert.show"
+        :text="alert.text"
+        :type="alert.type"
+      />
 
       <v-app-bar app color="white" dark>
         <v-container class="py-0 fill-height">

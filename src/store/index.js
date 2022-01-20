@@ -118,19 +118,20 @@ const store = new Vuex.Store({
 
       setTimeout(() => {
         dispatch('closeAlert')
-      }, 3000)
+      }, 5000)
     },
 
     showError({ commit, dispatch }, text) {
       commit('SET_ALERT', {
         show: true,
         type: 'error',
-        text: `發生錯誤：${text}`,
+        text: `${text}`,
+        icon: 'error',
       })
 
       setTimeout(() => {
         dispatch('closeAlert')
-      }, 3000)
+      }, 5000)
     },
 
     async getUserOrderItem({ commit, state }) {

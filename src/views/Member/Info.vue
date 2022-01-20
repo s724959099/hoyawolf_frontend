@@ -174,6 +174,8 @@ export default {
 
   mounted() {
     this.checkNotifyToken()
+
+    this.showError('123')
   },
 
   methods: {

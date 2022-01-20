@@ -32,7 +32,7 @@ Vue.config.productionTip = false
 import { VueSvgIcon } from '@yzfe/vue-svgicon'
 import '@yzfe/svgicon/lib/svgicon.css'
 
-Vue.component('y', VueSvgIcon)
+Vue.component('icon', VueSvgIcon)
 
 const vue = new Vue({
   router,
