@@ -44,8 +44,16 @@ service.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.data) {
-      const { msg } = error.response.data
-      store.dispatch('showError', msg)
+      const { msg, detail } = error.response.data
+      if (msg) store.dispatch('showError', msg)
+      if (detail) {
+        let errorMsg = ''
+        detail.errors.forEach((error) => {
+          errorMsg += `${error.loc[0]}: ${error.msg}`
+        })
+        store.dispatch('showError', errorMsg)
+      }
+
       Vue.$error('DEBUG: ⛔ 請求發生錯誤：', error.response)
     }
 
