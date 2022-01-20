@@ -7,7 +7,6 @@
       :value="show"
       max-width="500"
       transition="scale-transition"
-      items-per-page-text="123123"
     >
       {{ text }}
     </v-alert>

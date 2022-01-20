@@ -12,10 +12,11 @@ export function registerOpenseaNotifyAPI(data) {
 }
 
 // 註冊 Opensea Address 追蹤錢包通知
-export function registerAddressNotifyAPI() {
+export function registerAddressNotifyAPI(data) {
   return request({
-    url: `/api/line/opensea/address/register`,
+    url: `/api/line/opensea/address/register/`,
     method: 'post',
+    data,
   })
 }
 
@@ -62,7 +63,7 @@ export function deleteUserAPI(token_id) {
 }
 
 // 刪除 Address By Token
-export function deleteAddressAPI(token_id) {
+export function deleteAddressNotifyAPI(token_id) {
   return request({
     url: `/api/user/address/token/${token_id}/`,
     method: 'delete',
