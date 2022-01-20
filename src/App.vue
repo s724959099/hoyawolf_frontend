@@ -58,7 +58,7 @@
             <router-link :to="{ name: 'MemberTrackWallet' }">
               <v-list-item>
                 <v-list-item-icon>
-                  <v-icon>mdi-home-alert-outline</v-icon>
+                  <v-icon>mdi-wallet-outline</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title v-text="'錢包追蹤'"></v-list-item-title>
