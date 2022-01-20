@@ -5,9 +5,11 @@
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="d-flex justify-center align-center flex-column">
         <h2 class="black--text mb-2">使用說明</h2>
-        <img class="track mb-5" :src="addressTrackImg" alt="" />
+        <img class="hidden-xs track mb-5" :src="addressTrackImg" alt="" />
+
         <v-divider class="mx-4"></v-divider>
-        <div>
+
+        <div class="caption">
           <div v-for="caption in captions" :key="caption.title">
             <span class="subtitle-2 black--text">{{ caption.title }}</span>
             <ul>

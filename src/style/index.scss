@@ -15,5 +15,15 @@ a {
 }
 
 .track {
-  max-width: 550px;
+  max-width: 300px;
+  @media (min-width: 768px) {
+    max-width: 550px;
+  }
+}
+.caption {
+  max-width: 300px;
+
+  @media (min-width: 768px) {
+    max-width: 600px;
+  }
 }
