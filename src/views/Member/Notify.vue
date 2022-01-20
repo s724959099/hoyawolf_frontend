@@ -6,7 +6,7 @@
 
       <v-card-text class="d-flex justify-center align-center flex-column">
         <div class="text-center gray--text mt-3 mb-3">
-          追蹤喜愛的 NFT 項目，價格觸發時主動用 Line 通知
+          追蹤喜愛的 NFT 項目、聰明錢包，價格或動作觸發時主動用 Line 通知
         </div>
         <v-btn
           v-if="!notify"

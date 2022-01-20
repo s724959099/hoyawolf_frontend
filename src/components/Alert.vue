@@ -1,6 +1,6 @@
 <template>
   <div id="alert">
-    <v-dialog v-model="show" max-width="500">
+    <v-dialog persistent v-model="show" max-width="500">
       <v-card
         class="card d-flex align-center justify-center flex-column popupbg"
       >
@@ -15,12 +15,21 @@
         <span class="mt-2 px-2 subtitle-2 text-center textw--text">
           {{ text }}
         </span>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="cyan white--text" text @click="closeAlert"> OK </v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
+// Utils
+import { mapActions } from 'vuex'
+// Components
 /* eslint-disable vue/return-in-computed-property */
 import error from '@/assets/icons/alert/error.svg'
 import success from '@/assets/icons/alert/done.svg'
@@ -77,6 +86,10 @@ export default {
     iconUrl() {
       return this[this.type]
     },
+  },
+
+  methods: {
+    ...mapActions(['closeAlert']),
   },
 }
 </script>

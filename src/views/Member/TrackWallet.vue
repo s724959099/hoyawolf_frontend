@@ -5,6 +5,7 @@
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="d-flex justify-center align-center flex-column">
         <h2 class="black--text mb-2">使用說明</h2>
+        <img class="track mb-5" :src="addressTrackImg" alt="" />
         <v-divider class="mx-4"></v-divider>
         <div>
           <div v-for="caption in captions" :key="caption.title">
@@ -109,9 +110,9 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 // API
 import {
-  getAddresssRecommendAPI,
-  addAddresssRecommendAPI,
-  deleteAddresssRecommendAPI,
+  // getAddresssRecommendAPI,
+  // addAddresssRecommendAPI,
+  // deleteAddresssRecommendAPI,
   deleteAddressNotifyAPI,
   registerAddressNotifyAPI,
 } from '@/api/user'
@@ -121,6 +122,8 @@ export default {
   name: 'MemberTrackWallet',
   data() {
     return {
+      addressTrackImg: require('@/assets/images/address-track.png'),
+
       addressList: [],
       valid: false,
       form: {
@@ -128,6 +131,7 @@ export default {
         name: '',
         memo: '',
       },
+
       headers: [
         {
           text: '聰明錢包',

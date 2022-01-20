@@ -5,6 +5,7 @@
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="d-flex justify-center align-center flex-column">
         <h2 class="black--text mb-2">使用說明</h2>
+
         <v-divider class="mx-4"></v-divider>
 
         <div>
@@ -287,4 +288,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

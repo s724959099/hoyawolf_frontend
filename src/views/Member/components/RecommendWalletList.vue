@@ -4,20 +4,22 @@
       <v-card elevation="2" class="pa-10">
         <v-card-title>推薦聰明錢包清單</v-card-title>
         <v-divider class="mx-4"></v-divider>
+
+        <v-card-text class="d-flex justify-center align-center flex-column">
+          <div class="text-center gray--text mt-3 mb-3">
+            <span class="subtitle-2 black--text"
+              >想提供聰明錢包清單嗎？請左轉至
+              <a class="red--text" :href="discord">DC群-工程狼頻道提供</a>
+            </span>
+          </div>
+        </v-card-text>
         <v-data-table
           :headers="headers"
           :items="recommendAddressList"
           :items-per-page="10"
           class="elevation-2 mb-10"
           :footer-props="footerProps"
-          id="owner-data-table"
         >
-          <!-- <template v-slot:item.url="{ item }">
-            <a :href="item.url" target="_blank" rel="noopener noreferrer"
-              >Opensea</a
-            >
-          </template> -->
-
           <template v-slot:item.action="{ item }">
             <v-btn
               color="red lighten-2 white--text"
@@ -62,7 +64,10 @@ export default {
     ]),
   },
 
-  data: () => ({}),
+  data: () => ({
+    discord:
+      'https://discord.com/channels/910572490462490685/933304450179797005/933305426869620797',
+  }),
 
   methods: {
     ...mapMutations({
