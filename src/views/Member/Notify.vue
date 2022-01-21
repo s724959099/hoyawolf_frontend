@@ -16,7 +16,8 @@
           @click="lineRedirect"
           >開啟Line通知
         </v-btn>
-        <v-btn v-else disabled elevation="2">已開啟Line推播</v-btn>
+        <v-btn v-else disabled elevation="2">你已成功開啟Line推播</v-btn>
+        <v-btn @click="sendNotifyToUser" elevation="2">測試Line推播</v-btn>
       </v-card-text>
     </v-card>
   </v-container>
@@ -24,9 +25,10 @@
 
 <script>
 // Utils
+import Qs from 'qs'
 import { mapState, mapMutations } from 'vuex'
 // API
-import { lineRedirectAPI } from '@/api/line'
+import { lineRedirectAPI, sendNotifyToUserAPI } from '@/api/line'
 
 export default {
   name: 'MemberNotify',
@@ -55,6 +57,22 @@ export default {
     // [Step1] 請求 Notify 授權
     async lineRedirect() {
       window.open(lineRedirectAPI(`${location.origin}/member/auth`))
+    },
+
+    async sendNotifyToUser() {
+      const params = Qs.stringify({
+        message: 'cool',
+      })
+
+      const { data } = await sendNotifyToUserAPI(params)
+
+      if (data.msg === 'ok') {
+        this.showAlert({
+          show: true,
+          text: `推播成功`,
+          type: 'success',
+        })
+      }
     },
   },
 }

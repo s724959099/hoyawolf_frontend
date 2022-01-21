@@ -247,7 +247,7 @@ export default {
         if (data.msg === 'register success') {
           this.showAlert({
             show: true,
-            text: `訂閱 ${this.form.collection} 錢包成功`,
+            text: `訂閱 ${name} 錢包成功`,
             type: 'success',
           })
           // 重新取得資料
