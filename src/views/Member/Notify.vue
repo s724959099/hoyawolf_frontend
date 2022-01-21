@@ -17,7 +17,7 @@
           >開啟Line通知
         </v-btn>
         <v-btn v-else disabled elevation="2">你已成功開啟Line推播</v-btn>
-        <v-btn @click="sendNotifyToUser" elevation="2">測試Line推播</v-btn>
+        <!-- <v-btn @click="sendNotifyToUser" elevation="2">測試Line推播</v-btn> -->
       </v-card-text>
     </v-card>
   </v-container>
