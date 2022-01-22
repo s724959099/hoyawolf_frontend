@@ -133,7 +133,7 @@ export default {
       },
 
       rules: {
-        name: [(v) => !!v || '項目名稱為必填，請參考上述說明'],
+        name: [(v) => !!v || '必填，請填寫opensea「網址」最後一截單字'],
       },
 
       captions: [
