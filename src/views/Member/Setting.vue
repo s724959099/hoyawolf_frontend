@@ -20,11 +20,32 @@
             {{ info.idTokenDecode.name }}，
           </span>
           歡迎使用 Hoya 追蹤 Opensea 工具<br />
-          登入後請先到設定推播，允許 Line 機器人發送推播給你
+          <div v-if="!notify">
+            登入後請先到設定推播，允許 Line 機器人發送推播給你
+          </div>
+          <div v-else>
+            恭喜！你已成功設定 Line 推播，可以開始使用功能囉
+            <div class="mt-4">
+              <router-link :to="{ name: 'MemberInfo' }" class="mr-3">
+                <v-btn color="cyan lighten-2 white--text" elevation="2">
+                  NFT追蹤
+                </v-btn>
+              </router-link>
+              <router-link :to="{ name: 'MemberTrackWallet' }">
+                <v-btn color="red white--text" elevation="2">錢包追蹤</v-btn>
+              </router-link>
+            </div>
+          </div>
         </div>
         <div class="mt-3 mb-3">
-          <v-btn color="cyan lighten-2 white--text" elevation="2">
-            <router-link :to="{ name: 'MemberNotify' }"> 設定推播 </router-link>
+          <v-btn
+            v-if="!notify"
+            color="cyan lighten-2 white--text"
+            elevation="2"
+          >
+            <router-link :to="{ name: 'MemberNotify' }">
+              <span> 設定推播 </span>
+            </router-link>
           </v-btn>
         </div>
         <v-avatar>

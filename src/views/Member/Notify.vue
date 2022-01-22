@@ -8,16 +8,39 @@
         <div class="text-center gray--text mt-3 mb-3">
           追蹤喜愛的 NFT 項目、聰明錢包，價格或動作觸發時主動用 Line 通知
         </div>
+        <div v-if="!notify" class="text-center">
+          <v-btn
+            color="cyan lighten-2 white--text"
+            x-large
+            elevation="2"
+            @click="lineRedirect"
+            >開啟Line通知
+          </v-btn>
+        </div>
+        <div v-else class="d-flex justify-center align-center flex-column">
+          <v-btn disabled elevation="2">你已成功開啟Line推播</v-btn>
+          <v-card-text class="text-center">
+            接下來你可以到這些地方開始使用功能
+          </v-card-text>
+          <div>
+            <router-link :to="{ name: 'MemberInfo' }" class="mr-3">
+              <v-btn color="cyan lighten-2 white--text" elevation="2">
+                NFT追蹤
+              </v-btn>
+            </router-link>
+            <router-link :to="{ name: 'MemberTrackWallet' }">
+              <v-btn color="red white--text" elevation="2">錢包追蹤</v-btn>
+            </router-link>
+          </div>
+        </div>
         <v-btn
-          v-if="!notify"
-          color="cyan lighten-2 white--text"
-          x-large
+          color="blue white--text"
+          v-if="info.idTokenDecode.name === 'Hazel'"
+          @click="sendNotifyToUser"
+          class="mt-5"
           elevation="2"
-          @click="lineRedirect"
-          >開啟Line通知
-        </v-btn>
-        <v-btn v-else disabled elevation="2">你已成功開啟Line推播</v-btn>
-        <!-- <v-btn @click="sendNotifyToUser" elevation="2">測試Line推播</v-btn> -->
+          >測試Line推播</v-btn
+        >
       </v-card-text>
     </v-card>
   </v-container>
@@ -61,7 +84,7 @@ export default {
 
     async sendNotifyToUser() {
       const params = Qs.stringify({
-        message: 'cool',
+        message: 'coolman',
       })
 
       const { data } = await sendNotifyToUserAPI(params)

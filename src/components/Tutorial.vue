@@ -4,16 +4,14 @@
     遇到問題了嗎？「新手教學」可以幫助你找到答案
 
     <template v-slot:actions>
-      <v-btn class="white red--text" color="red" text>
-        <a
-          class="red--text"
-          :href="notion"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          前往新手教學
-        </a>
-      </v-btn>
+      <a
+        class="red--text"
+        :href="notion"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <v-btn class="white red--text" color="red" text> 前往新手教學 </v-btn>
+      </a>
     </template>
   </v-banner>
 </template>
