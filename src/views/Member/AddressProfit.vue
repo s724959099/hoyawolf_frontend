@@ -257,6 +257,9 @@ export default {
           this.showError('請先至「推播設定」，同意Line推播後，才可使用功能')
           return
         }
+        console.error('this.apiParams', this.apiParams)
+
+        this.setParams()
 
         const params = {
           ...this.apiParams,
