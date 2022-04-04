@@ -42,6 +42,17 @@ const routes = [
     },
   },
   {
+    path: '/member/address-profit',
+    name: 'AddressProfit',
+    component: () =>
+      import(
+        /* webpackChunkName: "member" */ '../views/Member/AddressProfit.vue'
+      ),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/member/info',
     name: 'MemberInfo',
     component: () =>

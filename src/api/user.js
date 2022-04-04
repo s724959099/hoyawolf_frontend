@@ -69,3 +69,12 @@ export function deleteAddressNotifyAPI(token_id) {
     method: 'delete',
   })
 }
+
+// 錢包分析 Address Profit
+export function addressProfitAPI(data) {
+  return request({
+    url: `/api/line/opensea/address_profit/`,
+    method: 'post',
+    data
+  })
+}

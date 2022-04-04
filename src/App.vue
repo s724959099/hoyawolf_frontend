@@ -73,6 +73,17 @@
               </v-list-item>
             </router-link>
 
+            <router-link :to="{ name: 'AddressProfit' }">
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-wallet-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="'錢包分析'"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
             <router-link :to="{ name: 'MemberSetting' }">
               <v-list-item>
                 <v-list-item-icon>
