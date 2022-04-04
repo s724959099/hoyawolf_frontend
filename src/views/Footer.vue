@@ -13,7 +13,7 @@
           </v-btn>
         </div>
         {{ new Date().getFullYear() }} —
-        <strong>工程狼 Meatball、Sula、Hazel 共同製作</strong>
+        <strong>工程狼 Meatball、Sula、Hazel、CWC 共同製作</strong>
       </v-card-text>
     </v-card>
   </v-footer>
