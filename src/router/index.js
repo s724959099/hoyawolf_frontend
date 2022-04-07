@@ -73,6 +73,17 @@ const routes = [
     },
   },
   {
+    path: '/member/dollar-challenge',
+    name: 'DollarChallenge',
+    component: () =>
+      import(
+        /* webpackChunkName: "member" */ '../views/Member/DollarChallenge.vue'
+      ),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '*',
     redirect: '/',
   },

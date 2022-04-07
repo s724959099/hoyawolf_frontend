@@ -86,3 +86,30 @@ export function addressProfitResultAPI(id) {
     method: 'get',
   })
 }
+
+// 交易所
+
+// [Bybit]
+export function registerBybitNotifyAPI(data) {
+  return request({
+    url: `/api/line/opensea/bybit_notify/register/`,
+    method: 'post',
+    data,
+  })
+}
+
+// [Bybit]
+export function checkBybitNotifyAPI(user_id) {
+  return request({
+    url: `/api/line/opensea/bybit_notify/${user_id}/`,
+    method: 'get',
+  })
+}
+
+// [Bybit]
+export function deleteBybitNotifyAPI(user_id) {
+  return request({
+    url: `/api/line/opensea/bybit_notify/${user_id}/`,
+    method: 'delete',
+  })
+}
