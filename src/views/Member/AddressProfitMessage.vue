@@ -19,7 +19,7 @@
               查詢的錢包地址：{{ resData.data.address }}
             </li>
           </ul>
-          <div class="mt-5 subtitle-1" v-html="resData.result"></div>
+          <div class="mt-5 subtitle-1 white-pre" v-html="resData.result"></div>
         </div>
 
         <div v-else>

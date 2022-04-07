@@ -28,7 +28,7 @@
                 NFT追蹤
               </v-btn>
             </router-link>
-            <router-link :to="{ name: 'MemberTrackWallet' }">
+            <router-link :to="{ name: 'MemberTrackWallet' }" class="mr-3">
               <v-btn color="red white--text" elevation="2">錢包追蹤</v-btn>
             </router-link>
             <router-link :to="{ name: 'AddressProfit' }">
