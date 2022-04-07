@@ -20,7 +20,7 @@
 export default {
   data: () => ({
     notion:
-      'https://www.notion.so/hazelwu/Opensea-029f2842fc7642ea8b6382906d1bf0bd',
+      'https://www.notion.so/hazelwu/Hoyawolf-029f2842fc7642ea8b6382906d1bf0bd',
   }),
 }
 </script>
