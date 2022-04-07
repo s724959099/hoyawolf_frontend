@@ -77,9 +77,8 @@ export default {
         this.setParams()
 
         const { data } = await checkBybitNotifyAPI(this.apiParams.user_id)
-        console.log(data)
 
-        this.hasBybitNotify = Object.keys(data).length > 0
+        this.hasBybitNotify = data && Object.keys(data).length > 0
       } catch (error) {
         this.$error(error)
         this.showError(error)
