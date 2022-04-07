@@ -82,7 +82,7 @@ const store = new Vuex.Store({
     },
 
     CHECK_NOTIFY_TOKEN(state) {
-      if (state.info.idTokenDecode.sub) {
+      if (state.info?.idTokenDecode?.sub) {
         this.dispatch('getUserOrderItem')
       } else {
         this.dispatch('showAlert', {

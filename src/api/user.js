@@ -75,6 +75,14 @@ export function addressProfitAPI(data) {
   return request({
     url: `/api/line/opensea/address_profit/`,
     method: 'post',
-    data
+    data,
+  })
+}
+
+// 錢包分析 Address Profit 訊息
+export function addressProfitResultAPI(id) {
+  return request({
+    url: `/api/line/opensea/address_profit/${id}/`,
+    method: 'get',
   })
 }

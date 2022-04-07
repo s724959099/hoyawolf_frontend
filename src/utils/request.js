@@ -46,7 +46,7 @@ service.interceptors.response.use(
     if (error.response && error.response.data) {
       const { msg, detail } = error.response.data
       if (msg) store.dispatch('showError', msg)
-      if (detail) {
+      if (detail && detail.errors) {
         let errorMsg = ''
         detail.errors.forEach((error) => {
           errorMsg += `${error.loc[0]}: ${error.msg}`
