@@ -91,7 +91,7 @@
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
-                    v-text="'一萬美金挑戰'"
+                    v-text="'Bybit下單追蹤'"
                   ></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>

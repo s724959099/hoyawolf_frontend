@@ -6,6 +6,11 @@
       <v-card-text class="d-flex justify-center align-center flex-column">
         <h2 class="black--text mb-2">即時 Line 通知進場、出場</h2>
 
+        <div class="mb-3">
+          ##
+          從300萬本金操作到1000萬的男人Tony，投報率將近300％，好奇他是怎麼做到的嗎？快來使用Bybit下單追蹤神器，掌握Tony第一時間的下單點位，止盈止損、槓桿倍數、倉位大小一次報給你知道！
+        </div>
+
         <v-divider class="mx-4"></v-divider>
         <div>
           <v-btn
